@@ -25,6 +25,7 @@ library(tidyverse, quietly = TRUE, warn.conflicts = FALSE)
 library(semTools, quietly = TRUE, warn.conflicts = FALSE)
 library(lavaan, quietly = TRUE, warn.conflicts = FALSE)
 library(MBESS, quietly = TRUE, warn.conflicts = FALSE)
+library(dynamic)
 ```
 
 ```{r}
@@ -171,6 +172,29 @@ table2 <- rbind(
   flextable::theme_apa() |>
   ftExtra::colformat_md()
 table2
+```
+
+### Confidence intervals of standardized factor loadings for each tau-congeneric trait model
+
+```{r}
+standardizedSolution(fit1A6P, type = "std.all", ci = TRUE, level = 0.95) |> filter(op == "=~")
+standardizedSolution(fit1A2P, type = "std.all", ci = TRUE, level = 0.95) |> filter(op == "=~")
+standardizedSolution(fit1G6P, type = "std.all", ci = TRUE, level = 0.95) |> filter(op == "=~")
+standardizedSolution(fit1G2P, type = "std.all", ci = TRUE, level = 0.95) |> filter(op == "=~")
+standardizedSolution(fit1Ge6P, type = "std.all", ci = TRUE, level = 0.95) |> filter(op == "=~")
+standardizedSolution(fit1Ge2P, type = "std.all", ci = TRUE, level = 0.95) |> filter(op == "=~")
+```
+
+### Dynamic fit indices for each tau-congeneric trait model
+
+```{r}
+set.seed(42)
+catOne(fit1A6P, reps = 500, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
+catOne(fit1A2P, reps = 500, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
+catOne(fit1G6P, reps = 500, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
+catOne(fit1G2P, reps = 500, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
+catOne(fit1Ge6P, reps = 500, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
+catOne(fit1Ge2P, reps = 500, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
 ```
 
 ### Bifactor models
