@@ -1,5 +1,5 @@
 ---
-title: "Secondary analyses (appendices)"
+title: "ESM B: Secondary analyses (appendices)"
 format:
   html:
     theme:
@@ -17,7 +17,7 @@ The section [Save results for manuscript](primary_analyses.qmd#sec-saveresults) 
 
 :::
 
-## Load packages
+# Load packages
 
 ```{r}
 library(foreign)
@@ -32,7 +32,7 @@ library(lavaan)
 papaja::r_refs(file = "../r-references.bib")
 ```
 
-## Load datasets
+# Load datasets
 
 ```{r}
 dat_poly <- read.spss("../data/Haupterhebung Studie III (Polytom 6PS).sav", 
@@ -41,7 +41,7 @@ dat_dich <- read.spss("../data/Haupterhebung Studie III (Dichotom 2PS).sav",
   to.data.frame = TRUE, use.value.labels = FALSE, na.omit = TRUE)
 ```
 
-## Fit and analyze CFA models with correlated errors
+# Fit and analyze CFA models with correlated errors
 
 ```{r}
 ### tau-kongeneric models with correlated errors 
@@ -165,7 +165,7 @@ table5 <- rbind(
 table5
 ```
 
-## Modification indices
+# Modification indices
 
 ```{r}
 mod_indA6 <- lavaan::modificationindices(fit1A6)
@@ -182,7 +182,7 @@ mod_indGe2 <- lavaan::modificationindices(fit1Ge2)
 subset(mod_indGe2[order(mod_indGe2$mi, decreasing=TRUE), ], mi > 4)
 ```
 
-## Save results for manuscript {#sec-saveresults}
+# Save results for manuscript {#sec-saveresults}
 
 ```{r}
 results <- saveRDS(

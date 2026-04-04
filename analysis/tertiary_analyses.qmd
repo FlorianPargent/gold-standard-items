@@ -1,5 +1,5 @@
 ---
-title: "Tertiary analyses (scale construction)"
+title: "ESM C: Tertiary analyses (scale construction)"
 format:
   html:
     theme:
@@ -17,7 +17,7 @@ More details on the procedures that were used to construct the final item set us
 
 :::
 
-## Load packages
+# Load packages
 
 ```{r}
 library(foreign)
@@ -31,14 +31,14 @@ library(psych)
 papaja::r_refs(file = "../r-references.bib")
 ```
 
-## Load datasets
+# Load datasets
 
 ```{r}
 dat_pilot <- read.spss("../data/Pilottest_Studie_3.sav", 
   to.data.frame = TRUE, use.value.labels = FALSE, na.omit = FALSE)
 ```
 
-## Exploratory factor analysis
+# Exploratory factor analysis
 
 ```{r}
 fit <- fa(dat_pilot |> select(KGr_22:KGr_40), 
@@ -47,7 +47,7 @@ fit <- fa(dat_pilot |> select(KGr_22:KGr_40),
 print(fit, sort = TRUE, cut = 0.15)
 ```
 
-### Reliability estimates and item total correlations
+# Reliability estimates and item total correlations
 
 ```{r}
 neg_items <- c("A_13", "A_14", "A_21",
@@ -72,7 +72,7 @@ rel_height
 rel_weight
 ```
 
-## References
+# References
 
 ::: {#refs}
 :::

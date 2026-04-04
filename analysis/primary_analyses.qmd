@@ -1,5 +1,5 @@
 ---
-title: "Primary analyses (manuscript)"
+title: "ESM A: Primary analyses (manuscript)"
 format:
   html:
     theme:
@@ -17,7 +17,7 @@ The section [Save results for manuscript](primary_analyses.qmd#sec-saveresults) 
 
 :::
 
-## Load packages
+# Load packages
 
 ```{r}
 library(foreign, quietly = TRUE, warn.conflicts = FALSE)
@@ -34,7 +34,7 @@ library(dynamic)
 papaja::r_refs(file = "../r-references.bib")
 ```
 
-## Load datasets
+# Load datasets
 
 ```{r}
 dat_poly <- read.spss("../data/Haupterhebung Studie III (Polytom 6PS).sav", 
@@ -43,7 +43,7 @@ dat_dich <- read.spss("../data/Haupterhebung Studie III (Dichotom 2PS).sav",
   to.data.frame = TRUE, use.value.labels = FALSE, na.omit = FALSE)
 ```
 
-## Descriptive statistics
+# Descriptive statistics
 
 ```{r}
 dat_desc <- bind_rows(
@@ -65,9 +65,7 @@ table1
 ```
 
 
-## Fit and analyze CFA models
-
-### Tau-congeneric model for each trait
+# Tau-congeneric model for each trait
 
 ```{r}
 ### tau-congeneric model without modification 
@@ -140,11 +138,33 @@ fit_df <- bind_rows(
   mutate(est_print = if_else(statistic == "$p$", papaja::printp(as.numeric(est_print)), est_print)) |>
   pivot_wider(id_cols = statistic, names_from = c(measure, categories), values_from = est_print)
 
-
 table2 <- rbind(
     load_df_nomod_proc |> select(item, height_2, height_6, weight_2, weight_6, age_2, age_6) |> rename(Measure = item) |> mutate(group = "Items"),
     fit_df |> select(statistic, height_2, height_6, weight_2, weight_6, age_2, age_6) |> rename(Measure = statistic) |> mutate(group = "Model fit")
-  ) |> 
+  )
+
+physical_with_ci <- c(
+  sprintf("%s\n[%s;%s]", table2 |> filter(Measure == "Physical item") |> pull(height_2), 
+    load_df_nomod |> filter(measure == "height" & categories == 2 & item_name == "Koerpergroesse_realW") |> pull(ci.lower) |> papaja::printnum(gt1 = FALSE, digits = 3),
+    load_df_nomod |> filter(measure == "height" & categories == 2 & item_name == "Koerpergroesse_realW") |> pull(ci.upper) |> papaja::printnum(gt1 = FALSE, digits = 3)),
+  sprintf("%s\n[%s;%s]", table2 |> filter(Measure == "Physical item") |> pull(height_6), 
+    load_df_nomod |> filter(measure == "height" & categories == 6 & item_name == "Koerpergroesse_realW") |> pull(ci.lower) |> papaja::printnum(gt1 = FALSE, digits = 3),
+    load_df_nomod |> filter(measure == "height" & categories == 6 & item_name == "Koerpergroesse_realW") |> pull(ci.upper) |> papaja::printnum(gt1 = FALSE, digits = 3)),
+  sprintf("%s\n[%s;%s]", table2 |> filter(Measure == "Physical item") |> pull(weight_2), 
+    load_df_nomod |> filter(measure == "weight" & categories == 2 & item_name == "Koerpergewicht_realW") |> pull(ci.lower) |> papaja::printnum(gt1 = FALSE, digits = 3),
+    load_df_nomod |> filter(measure == "weight" & categories == 2 & item_name == "Koerpergewicht_realW") |> pull(ci.upper) |> papaja::printnum(gt1 = FALSE, digits = 3)),
+  sprintf("%s\n[%s;%s]", table2 |> filter(Measure == "Physical item") |> pull(weight_6), 
+    load_df_nomod |> filter(measure == "weight" & categories == 6 & item_name == "Koerpergewicht_realW") |> pull(ci.lower) |> papaja::printnum(gt1 = FALSE, digits = 3),
+    load_df_nomod |> filter(measure == "weight" & categories == 6 & item_name == "Koerpergewicht_realW") |> pull(ci.upper) |> papaja::printnum(gt1 = FALSE, digits = 3)),
+    sprintf("%s\n[%s;%s]", table2 |> filter(Measure == "Physical item") |> pull(age_2), 
+    load_df_nomod |> filter(measure == "age" & categories == 2 & item_name == "Alter_realW") |> pull(ci.lower) |> papaja::printnum(gt1 = FALSE, digits = 3),
+    load_df_nomod |> filter(measure == "age" & categories == 2 & item_name == "Alter_realW") |> pull(ci.upper) |> papaja::printnum(gt1 = FALSE, digits = 3)),
+  sprintf("%s\n[%s;%s]", table2 |> filter(Measure == "Physical item") |> pull(age_6), 
+    load_df_nomod |> filter(measure == "age" & categories == 6 & item_name == "Alter_realW") |> pull(ci.lower) |> papaja::printnum(gt1 = FALSE, digits = 3),
+    load_df_nomod |> filter(measure == "age" & categories == 6 & item_name == "Alter_realW") |> pull(ci.upper) |> papaja::printnum(gt1 = FALSE, digits = 3))
+)
+
+table2 <- table2 |> 
   group_by(group) |>
   flextable::as_grouped_data(groups = "group") |>
   flextable::as_flextable(hide_grouplabel = TRUE) |>
@@ -159,6 +179,11 @@ table2 <- rbind(
   flextable::align(i = 1, align = "center", part = "header") |>
   flextable::border(i = 2, j = 1, border.top = officer::fp_border(width = 0), part = "header") |>
   flextable::border(i = 1, j = 1, border.bottom = officer::fp_border(width = 0), part = "header") |>
+ 
+  flextable::compose(i = 14,
+  j = c("height_2", "height_6", "weight_2", "weight_6", "age_2", "age_6"),
+  value = flextable::as_paragraph(physical_with_ci)
+) |>
   
   flextable::bold(i = ~ abs(parse_number(age_6)) > parse_number(age_6[14]), j = "age_6") |>
   flextable::bold(i = ~ abs(parse_number(age_2)) > parse_number(age_2[14]), j = "age_2") |>
@@ -174,7 +199,7 @@ table2 <- rbind(
 table2
 ```
 
-### Confidence intervals of standardized factor loadings for each tau-congeneric trait model
+# Confidence intervals of standardized factor loadings for each tau-congeneric trait model
 
 ```{r}
 standardizedSolution(fit1A6P, type = "std.all", ci = TRUE, level = 0.95) |> filter(op == "=~")
@@ -185,19 +210,19 @@ standardizedSolution(fit1Ge6P, type = "std.all", ci = TRUE, level = 0.95) |> fil
 standardizedSolution(fit1Ge2P, type = "std.all", ci = TRUE, level = 0.95) |> filter(op == "=~")
 ```
 
-### Dynamic fit indices for each tau-congeneric trait model
+# Dynamic fit indices for each tau-congeneric trait model
 
 ```{r}
 set.seed(42)
-catOne(fit1A6P, reps = 500, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
-catOne(fit1A2P, reps = 500, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
-catOne(fit1G6P, reps = 500, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
-catOne(fit1G2P, reps = 500, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
-catOne(fit1Ge6P, reps = 500, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
-catOne(fit1Ge2P, reps = 500, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
+catOne(fit1A6P, reps = 10, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
+catOne(fit1A2P, reps = 10, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
+catOne(fit1G6P, reps = 10, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
+catOne(fit1G2P, reps = 10, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
+catOne(fit1Ge6P, reps = 10, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
+catOne(fit1Ge2P, reps = 10, estimator = "WLSMV", plot = FALSE, manual = FALSE)$cutoffs
 ```
 
-### Bifactor models
+# Bifactor models
 
 ```{r}
 ### Residual Psychologie
@@ -334,7 +359,7 @@ table3
 ```
 
 
-### Full model
+# Full model
 
 ```{r}
 modelges <- "
@@ -357,7 +382,7 @@ summary(fit1ges6, fit.measures=TRUE, standardized = TRUE, rsquare = TRUE, modind
 summary(fit1ges2, fit.measures=TRUE, standardized = TRUE, rsquare = TRUE, modindices = TRUE)
 ```
 
-## Correlations between latent variables
+# Correlations between latent variables
 
 ```{r}
 (r_latent_poly <- standardizedSolution(fit1ges6, type = "std.all") |>
@@ -394,7 +419,7 @@ r_latent_GGe2 <- r_latent_dich |> filter(lhs == "height" & rhs == "weight") |> p
 ```
 
 
-## Correlations between physical variables
+# Correlations between physical variables
 
 ```{r}
 (r_phys_poly <- standardizedSolution(fit1ges6, type = "std.all") |>
@@ -434,7 +459,7 @@ r_phys_GGe2 <- r_phys_dich |> filter(lhs == "Koerpergewicht_realW" & rhs == "Koe
 ```
 
 
-## Reliability estimates
+# Reliability estimates
 
 ```{r}
 ## ------------------------------------------------------------
@@ -518,7 +543,7 @@ table4 <- flextable::flextable(cor_table) |>
 table4
 ```
 
-## Save results for manuscript {#sec-saveresults}
+# Save results for manuscript {#sec-saveresults}
 
 ```{r}
 results <- saveRDS(

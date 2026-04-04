@@ -7,11 +7,11 @@ manuscript:
   code-links: [binder, repo]
   notebooks:
     - notebook: analysis/primary_analyses.qmd
-      title: "1. Primary analyses (manuscript)"
+      title: "ESM A: Primary analyses (manuscript)"
     - notebook: analysis/secondary_analyses.qmd
-      title: "2. Secondary analyses (appendices)"
+      title: "ESM B: Secondary analyses (appendices)"
     - notebook: analysis/tertiary_analyses.qmd
-      title: "3. Tertiary analyses (scale construction)"
+      title: "ESM C: Tertiary analyses (scale construction)"
 
 format:
   apaquarto-html:
