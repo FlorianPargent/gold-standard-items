@@ -47,7 +47,7 @@ fit <- fa(dat_pilot |> select(KGr_22:KGr_40),
 print(fit, sort = TRUE, cut = 0.15)
 ```
 
-# Reliability estimates and item total correlations
+# Reliability estimates and item total correlations for each scale
 
 ```{r}
 neg_items <- c("A_13", "A_14", "A_21",
