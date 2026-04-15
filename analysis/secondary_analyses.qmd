@@ -135,7 +135,30 @@ fit_df <- bind_rows(
 table5 <- rbind(
     load_df_mod_proc |> select(item, height_2, height_6, weight_2, weight_6, age_2, age_6) |> rename(Measure = item) |> mutate(group = "Items"),
     fit_df |> select(statistic, height_2, height_6, weight_2, weight_6, age_2, age_6) |> rename(Measure = statistic) |> mutate(group = "Model fit")
-  ) |> 
+  )
+
+physical_with_ci_mod <- c(
+  sprintf("%s\n[%s;%s]", table5 |> filter(Measure == "Physical item") |> pull(height_2), 
+    load_df_mod |> filter(measure == "height" & categories == 2 & item_name == "Koerpergroesse_realW") |> pull(ci.lower) |> papaja::printnum(gt1 = FALSE, digits = 3),
+    load_df_mod |> filter(measure == "height" & categories == 2 & item_name == "Koerpergroesse_realW") |> pull(ci.upper) |> papaja::printnum(gt1 = FALSE, digits = 3)),
+  sprintf("%s\n[%s;%s]", table5 |> filter(Measure == "Physical item") |> pull(height_6), 
+    load_df_mod |> filter(measure == "height" & categories == 6 & item_name == "Koerpergroesse_realW") |> pull(ci.lower) |> papaja::printnum(gt1 = FALSE, digits = 3),
+    load_df_mod |> filter(measure == "height" & categories == 6 & item_name == "Koerpergroesse_realW") |> pull(ci.upper) |> papaja::printnum(gt1 = FALSE, digits = 3)),
+  sprintf("%s\n[%s;%s]", table5 |> filter(Measure == "Physical item") |> pull(weight_2), 
+    load_df_mod |> filter(measure == "weight" & categories == 2 & item_name == "Koerpergewicht_realW") |> pull(ci.lower) |> papaja::printnum(gt1 = FALSE, digits = 3),
+    load_df_mod |> filter(measure == "weight" & categories == 2 & item_name == "Koerpergewicht_realW") |> pull(ci.upper) |> papaja::printnum(gt1 = FALSE, digits = 3)),
+  sprintf("%s\n[%s;%s]", table5 |> filter(Measure == "Physical item") |> pull(weight_6), 
+    load_df_mod |> filter(measure == "weight" & categories == 6 & item_name == "Koerpergewicht_realW") |> pull(ci.lower) |> papaja::printnum(gt1 = FALSE, digits = 3),
+    load_df_mod |> filter(measure == "weight" & categories == 6 & item_name == "Koerpergewicht_realW") |> pull(ci.upper) |> papaja::printnum(gt1 = FALSE, digits = 3)),
+    sprintf("%s\n[%s;%s]", table5 |> filter(Measure == "Physical item") |> pull(age_2), 
+    load_df_mod |> filter(measure == "age" & categories == 2 & item_name == "Alter_realW") |> pull(ci.lower) |> papaja::printnum(gt1 = FALSE, digits = 3),
+    load_df_mod |> filter(measure == "age" & categories == 2 & item_name == "Alter_realW") |> pull(ci.upper) |> papaja::printnum(gt1 = FALSE, digits = 3)),
+  sprintf("%s\n[%s;%s]", table5 |> filter(Measure == "Physical item") |> pull(age_6), 
+    load_df_mod |> filter(measure == "age" & categories == 6 & item_name == "Alter_realW") |> pull(ci.lower) |> papaja::printnum(gt1 = FALSE, digits = 3),
+    load_df_mod |> filter(measure == "age" & categories == 6 & item_name == "Alter_realW") |> pull(ci.upper) |> papaja::printnum(gt1 = FALSE, digits = 3))
+)
+
+table5 <- table5 |> 
   group_by(group) |>
   flextable::as_grouped_data(groups = "group") |>
   flextable::as_flextable(hide_grouplabel = TRUE) |>
@@ -151,6 +174,11 @@ table5 <- rbind(
   flextable::border(i = 2, j = 1, border.top = officer::fp_border(width = 0), part = "header") |>
   flextable::border(i = 1, j = 1, border.bottom = officer::fp_border(width = 0), part = "header") |>
   
+  flextable::compose(i = 14,
+  j = c("height_2", "height_6", "weight_2", "weight_6", "age_2", "age_6"),
+  value = flextable::as_paragraph(physical_with_ci_mod)
+  ) |>
+  
   flextable::bold(i = ~ abs(parse_number(age_6)) > parse_number(age_6[14]), j = "age_6") |>
   flextable::bold(i = ~ abs(parse_number(age_2)) > parse_number(age_2[14]), j = "age_2") |>
   flextable::bold(i = ~ abs(parse_number(height_6)) > parse_number(height_6[14]), j = "height_6") |>
@@ -162,6 +190,7 @@ table5 <- rbind(
   
   flextable::theme_apa() |>
   ftExtra::colformat_md()
+
 table5
 ```
 
