@@ -67,7 +67,7 @@ author:
       - formal analysis
       - software
       - validation
-      - editing
+      - writing
     affiliations:
       - ref: lmu
   - name: Janika Saretzki
