@@ -382,100 +382,98 @@ results$table4
 
 ## Summary
 
-The goal of this study was to evaluate newly constructed psychological scales with gold-standard items in the special setting of physical traits (body height, body weight, and chronological age) where theoretically strong gold-standard items are available as a numerical self-report of the physical trait.
-Using confirmatory factor analysis, we found that contrary to our assumptions, even in this ideal setting, gold-standard items did not have the highest loading on the corresponding latent variable for all physical traits.
-After controlling for the gold-standard item and gender, a residual psychological component was found for all traits, but the meaning of this latent variable was hard to interpret at best.
-The correlations between the latent variables also did not closely match the correlations between the gold-standard items.
-All results were highly similar for questionnaire versions with two and six response categories, although reliability estimates were slightly lower for the versions with two response categories.
+The goal of this study was to evaluate newly constructed psychological scales using gold-standard items. To achieve this, we focused on the specific setting of physical traits (i.e., body height, body weight, and chronological age), where theoretically robust gold-standard items are available in the form of numerical self-reports.
+Using confirmatory factor analysis, we found that, contrary to our assumptions, even in this ideal setting, gold-standard items did not exhibit the highest loadings on their corresponding latent variables for all physical traits.
+After controlling for the gold-standard item and gender, we observed a residual psychological component for all traits, but the interpretation of this latent variable was not straightforward.
+The correlations between the latent variables also did not closely match those between the gold-standard items.
+All results were highly similar across questionnaire versions with two and six response categories, although reliability estimates were slightly lower for the two-category category versions.
 
 ## Gold-Standard Items for Physical Traits
 
-Despite the favorable setting of constructing psychological scales for physical traits and an extensive construction process, gold-standard items did not fully work as expected with respect to our theoretical assumptions.
-Only the gold-standard item for body height – for six, not for two response categories – had the highest correlation with the latent variable.
-The scales for body weight and chronological age did not produce the highest correlation between the latent variable and their gold-standard items relative to the other items of the scale.
-Considering both the size and the measurement uncertainty of the factor loadings, it seems evident that the gold-standard items for weight and age load substantially lower on the latent variable than the best items of the respective scale.
-This finding clearly questions, whether our psychological scales for weight and age measure their physical traits as intended.
-Unfortunately, we could not fully clarify what these scales measure instead. 
-When we controlled item responses for the gold-standard items and gender, we found the remaining latent variable hard to interpret. 
-Previous literature hints that measuring physical attributes through psychological questionnaires is not always connected to a well defined psychological latent variable guiding behavior [@hilbertWhatMeasureEmpirical2022; @vanderlindenUnidimensionalLogisticResponse2016].
-Also in our study, it remained unclear if a psychological latent variable beyond body height and weight was measured and how such a latent variable could be interpreted (for this purpose, we also inspected the biggest correlated errors in the one-factor models reported in @tbl-5, but without much success).  
-Only for the age scales did we find some plausible indications that the latent variable could be interpreted as cognitive or psychological age [@barakCognitiveAgeNonchronological1981].
-The three age items with the highest loadings on the residual latent variable where all related to mental decline but there were also many items without a substantial loading on this latent variable.
-Only for age did we observe the peculiar pattern that items were either well predicted by the physical item or had high loadings on the residual latent variable, but not both.
-In contrast, the weight items with the highest loading on the residual latent variable were also predicted substantially by the physical item.
-For height, all items were well predicted by the physical item and had rather small but consistent loadings on the residual latent variable.
-Overall, the unclear interpretation of the residual latent variables is consistent with our finding that the correlations between the latent variables of the three scales did not closely match the correlation between the corresponding gold-standard items (with little differences between response formats) and we did not find a clear interpretation of the altered pattern.
-Combining the evidence from all analyses, only the psychological scales for height performed (almost) up to our expectations and we only consider them to be appropriate measures of their respective physical trait body height.
+Despite the favorable setting when constructing psychological scales for physical traits and our carefully curated scale-construction process, gold-standard items did not fully function as expected with respect to our theoretical assumptions.
+Only on one of six scales (three physical traits measured via two response-scale versions each) did the gold-standard item exhibit a higher loading on the latent variable than the psychological items.
+That was on the six-category scale for body height, but not on the two-response-category version.
+The scales for body weight and chronological age did not yield higher correlations between the latent variable and their gold-standard items than between the latent variable and the other items on the scale.
+Considering both the size and the measurement uncertainty of the factor loadings, it seems evident that the gold-standard items for weight and age loaded substantially lower on the latent variable than the best items of the respective scales.
+This finding raises questions about whether our psychological scales for weight and age accurately measure the physical traits they were designed to assess.
+Given this ambiguous construct validity, we would have expected the psychological items to capture a latent component beyond the physical trait itself. To examine this possibility, we conducted follow-up analyses controlling item responses for the gold-standard item and gender.
+However, the resulting residual latent variables proved difficult to interpret, both in terms of whether such a latent variable was present at all and how it could be meaningfully characterized (to further probe this issue, we also inspected the largest correlated errors in the one-factor models reported in @tbl-5, but without gaining additional insights).
+This lack of clarity is consistent with prior work suggesting that psychological questionnaires targeting physical attributes do not necessarily reflect a well-defined psychological construct that guides behavior [@hilbertWhatMeasureEmpirical2022; @vanderlindenUnidimensionalLogisticResponse2016].
+A more detailed inspection revealed that this pattern varied across traits, but did not yield a coherent interpretation overall. For age, we found some indication that the residual latent variable may reflect cognitive or psychological age [@barakCognitiveAgeNonchronological1981], as the highest-loading items all referred to mental decline. However, many age items showed negligible loadings, and the items tended to be either well predicted by the physical age item or strongly related to the residual latent variable, but rarely both.
+For weight, in contrast, items with high loadings on the residual factor were also substantially predicted by the physical item, suggesting no clear separation between physical and psychological components.
+For height, all items were well predicted by the physical item and showed only small, relatively uniform residual loadings, providing little evidence for an additional latent dimension.
+Taken together, these findings provide no consistent support for a meaningful psychological latent variable beyond the assessed physical traits of body height and weight.
+This interpretation is further reinforced by the mismatch between the correlations among the latent variables and those among the corresponding gold-standard items.
+Overall, only the height scales performed close to expectations, and we therefore consider them the only appropriate measures of their respective physical trait.
 
-In light of these issues, it is important to assess whether some decisions in our construction process might have led to unique problems with our scales.[^extremewording]
-It is thus useful to compare our results with the study from @bortolottiRelevanceAdvantagesUsing2013, who previously applied the same procedure with 27 items with two response categories to investigate a gold-standard item for body height.
-They found a correlation of .86 between the sum score of their scale with self-reported height which closely matches our correlation of the gold-standard height item with the latent variable (two response categories: `r results$load_df_nomod |> filter(rhs == "Koerpergroesse_realW" & categories == 2) |> pull(est.std) |> printnum(gt1 = FALSE)`, six response categories: `r results$load_df_nomod |> filter(rhs == "Koerpergroesse_realW" & categories == 6) |> pull(est.std) |> printnum(gt1 = FALSE)`). 
-They also reported items with descriptively equal or higher correlations (biserial correlations) with the sum score than the self-reported physical item (Pearson correlation).
-The comparison does not suggest that our scales have unique problems, considering that we were able to conceptually replicate @bortolottiRelevanceAdvantagesUsing2013 with our independently developed questionnaire.
+In light of these issues, we sought to rule out the possibility that certain decisions in our questionnaire construction process introduced idiosyncratic problems [^extremewording] by comparing our results with those of @bortolottiRelevanceAdvantagesUsing2013, who applied a similar procedure with 27 items and two response categories to examine a gold-standard item for body height.
+They found a correlation of .86 between the sum score of their scale and self-reported height, which closely matches our correlation between the gold-standard height item and the latent variable (two response categories: `r results$load_df_nomod |> filter(rhs == "Koerpergroesse_realW" & categories == 2) |> pull(est.std) |> printnum(gt1 = FALSE)`, six response categories: `r results$load_df_nomod |> filter(rhs == "Koerpergroesse_realW" & categories == 6) |> pull(est.std) |> printnum(gt1 = FALSE)`). 
+They also reported items with biserial correlations with the sum score that were equal to or higher than the Pearson correlation for the self-reported physical item.
+The comparison does not suggest that our scales have unique problems, as we were able to conceptually replicate @bortolottiRelevanceAdvantagesUsing2013 with our independently developed questionnaire.
 
 [^extremewording]: For example, one reviewer questioned why many of our items use quite extreme item wording (e.g. "I have already lived most of my life") and pondered whether this might explain why our scales did work as expected. However, our cognitive interviews and pilot tests suggested that -- maybe surprisingly -- these items worked best to assess height, weight or age.
 
-It is also noteworthy that our results where surprisingly robust with respect to different response formats as we found very similar results for questionnaire versions with two and six response categories.
-As expected, reliability estimates were slightly higher for scales with six response categories compared to two categories [@prestonOptimalNumberResponse2000].
-But the results with regard to model fit and validity, indicated as correlations between latent variables compared to the correlation between gold-standard items, were mixed.
-Some fit indices suggested slightly better fit for items with two response categories and some for six categories (although the difference were rather small).
-The same holds true for the differences between the correlations of the gold-standard items and the correlations of the latent variables.
+It is also noteworthy that our results where surprisingly robust across different response formats, with very similar findings for questionnaire versions with two and six response categories.
+We used a 6-point response format to align with literature advising against the use of a middle category (TODO REF), and a 2-point format because it is widely used in symptom questionnaires within clinical psychology and medicine (TODO REF).
+As expected, reliability estimates were slightly higher for scales with six response categories than for those with two [@prestonOptimalNumberResponse2000].
+However, the results for model fit and validity were mixed.
+Some fit indices suggested a slightly better fit for items with two response categories and some for six categories (although the differences were rather small).
+The same holds true for the differences between the correlations among the gold-standard items and the correlations among the latent variables.
 Except for reliability, our results do not clearly favor either two or six response categories. 
-Although we would not suspect strongly different results for five or seven response categories, we cannot with certainty generalize our results towards response formats that include a middle category (we only used formats without a middle category) or response formats where all categories are labeled (we only labeled the endpoints).
-Hilbert et al. [-@hilbertInfluenceResponseFormat2016; -@hilbertWhatMeasureEmpirical2022] showed that the same items with a different number of response categories do not necessarily measure the same latent variable.
-Thus, there is always the possibility that the selection of the response format changes validity.
-We used a 6-point response format because this is our own personal preference which aligns with the part of the literature advising against using a middle category.
-The 2-point response format was chosen because it is a qualitatively different format that is extensively used for symptom questionnaires in clinical psychology and medicine.
-When we consult on how to constructing psychological scales, we always advise our clients that the number of response categories should be considered carefully.
-An intensive cognitive pretesting phase can help to understand how people use and understand the categories and empirical studies can help to choose number of response categories which provide better validity or/and reliability or/and factor structures [@willisWhatDo2013].
-In the current study, the pretesting as well as the final results suggest that both applied response formats worked reasonably well.
-
+While we would not expect substantially different results for scales with five or seven response categories, we cannot generalize our results to response formats that include a middle category (we only used formats without a middle category) or to response formats where all categories are labeled (we only labeled the endpoints).
+Hilbert et al. [-@hilbertInfluenceResponseFormat2016; -@hilbertWhatMeasureEmpirical2022] showed that the same items, when measured with different numbers of response categories, do not necessarily measure the same latent variable.
+Thus, the selection of the response format may affect validity, prompting us to advise questionnaire developers to carefully consider the number of response categories when constructing psychological scales.
+<!-- We used a 6-point response format because this is our own personal preference which aligns with the part of the literature advising against using a middle category. -->
+<!-- The 2-point response format was chosen because it is a qualitatively different format that is extensively used for symptom questionnaires in clinical psychology and medicine. -->
+<!-- When we consult on how to constructing psychological scales, we always advise our clients that the number of response categories should be considered carefully. -->
+An intensive cognitive pretesting phase can help clarify how respondents use and understand the categories, and empirical studies can help determine the number of response categories that provide better validity, reliability, and/or factor structures [@willisWhatDo2013].
+In the current study, pretesting and final results suggest that both applied response formats performed reasonably well.
 
 ## Gold-Standard Items for Psychological Traits
 
-Based on our findings on using gold-standard items to evaluate psychological scales for physical traits, we want to discuss whether a similar strategy could also be used in the more common task of constructing psychological scales for psychological traits, where theoretically strong gold-standard items are more difficult to come by.
+Based on our findings from using gold-standard items to evaluate psychological scales for physical traits, we want to discuss whether a similar strategy could also be used in the more common task of constructing psychological scales for psychological traits, where theoretically strong gold-standard items are more difficult to identify.
 
-In psychology, we try to use precise names for our latent variables such as as emotional intelligence, self-efficacy, conscientiousness or narcissism.
-It might therefore seem easy to always subject the naming of the latent variable to a kind of gold-standard item.
-But would we really expect that in a questionnaire that measures conscientiousness, an item like *"I am a narcissist."* [see @konrathDevelopmentAnd2014] best reflects the construct *narcissism* and thus has the highest factor loading? 
-In this context, we see great overlap with the psychological research on single-item measures:
-Single-item measures (i.e. measuring a psychological construct with a single question in rating scale format, which often uses slightly longer wording and provides additional context in its instruction) are increasingly used in psychological research when constructs have a rather narrow definition and there are strong practical reasons why longer multi-item scales cannot be applied without problems [@fuchsUsingSingle2009].
-However, it has been emphasized repeatedly that rigorous validation is equally important for single item measures than for all psychological scales [@allenSingleItem2022].
-In this literature, one common piece of evidence how to examine the validity of a newly constructed single item measure is to examine the loading of the single item measure in a one-factor model including both the single item measure and the items from an established multi-item scale for the same psychological construct [@fisherDevelopingInvestigating2016; @matthewsNormalizingUse2022].
+In psychology, we try to use precise names for our latent variables, such as emotional intelligence, self-efficacy, conscientiousness, or narcissism.
+It might, therefore, seem straightforward to turn these construct labels into corresponding "gold-standard" items.
+But is it reasonable to expect that, in a questionnaire that measures narcissism, an item such as *"I am a narcissist."* [see @konrathDevelopmentAnd2014] most accurately reflects the construct and, consequently, shows the highest factor loading? 
+This question is closely related to psychological research on single-item measures, that is, the measurement of psychological constructs using a single question in a rating-scale format, which often uses slightly longer wording and provides additional context in its instructions.
+Single-item measures are increasingly used in psychological research when constructs are narrowly defined and when there are strong practical reasons that longer multi-item scales cannot be applied without problems [@fuchsUsingSingle2009].
+However, rigorous validation is repeatedly emphasized as equally important for single-item measures as for all psychological scales [@allenSingleItem2022].
+In this literature, a common approach to assessing the validity of a newly constructed single-item measure is to examine its loading in a one-factor model that includes both the single-item measure and the items from an established multi-item scale for the same psychological construct [@fisherDevelopingInvestigating2016; @matthewsNormalizingUse2022].
 This is exactly the same logic we used in our study of gold-standard items for physical traits.
 
-Thus, when constructing a new psychological scale, the researcher could always check whether a validated single-item measure for the same psychological construct is available in the literature.
-Those single-item measures would be natural candidates for gold-standard items that could be included in the validation study of the new scale.
-Although the literature on single-item measures argues that a good single-item measure should load highly on the latent variable shared with the multi-item scale, it does not require the single-item measure to have the highest or equally high loading than the best items of the scale [@fisherDevelopingInvestigating2016; @matthewsNormalizingUse2022].
-We would argue that in most circumstances, it would nonetheless suggest issues with the newly constructed scale if the single item measure does not have a high loading compared to the other items.
-But note that there is empirical evidence that such analyses would detect problems in a substantial number of scale construction processes even when using a much lower bar.
-In @fisherDevelopingInvestigating2016, eight out of 18 newly constructed single-item measures had lower loadings than all items of the corresponding multi-item scale and one single-item measure had a low absolute loading less than 0.3.
-In @matthewsNormalizingUse2022, seven out of 91 newly developed single-item measures did not even load significantly on the factor shared with the corresponding multi-item scale, loaded in the wrong direction or had a low absolute loading less than 0.3.[^matthews]
-Even if there is no consensus on how big the loading of the single-item measure should be in order to conclude that everything is fine [@allenSingleItem2022], we would argue that most experts would agree that at least in the cases reported above, there must be some problem either with the single-item measure, the multi-item scale or both.
+Thus, when constructing a new psychological scale, researchers could check whether a validated single-item measure of the same psychological construct is available and, if so, use it as a natural candidate for a gold-standard item in their validation study.
+Although the literature argues that a good single-item measure should load highly on the latent variable shared with the multi-item scale, it does not require the single-item measure to have the highest, or even equal, loading to the best items of the scale [@fisherDevelopingInvestigating2016; @matthewsNormalizingUse2022].
+We would argue that in most circumstances, it would nonetheless suggest issues with the newly constructed scale if the single-item measure has a low loading compared to the other items.
+Empirical evidence suggests that such analyses can detect problems in a substantial number of scale-construction processes even with a much lower threshold.
+In @fisherDevelopingInvestigating2016, eight out of 18 newly constructed single-item measures had lower loadings than all items of the corresponding multi-item scale, and one single-item measure had a low absolute loading under 0.3.
+In @matthewsNormalizingUse2022, seven out of 91 newly developed single-item measures did not even load significantly on the factor shared with the corresponding multi-item scale, loaded in the wrong direction, or had a low absolute loading under 0.3.[^matthews]
+Even if there is no consensus on how high the single-item measure's loading should be [@allenSingleItem2022], most experts would agree that, in the cases reported above, there must be a problem with the single-item measure, the multi-item scale, or both.
 
 [^matthews]: Unfortunately, @matthewsNormalizingUse2022 do not report how often the single-item measure had the highest estimated loading compared to the items from the multi-item scale and it is not possible to extract this information from their paper or supplemental materials.
 
-What would be plausible reasons why a single-item measure should not have the highest loading relative to the items from a corresponding multi-item scale?
-The literature argues that single-item measures should be most effective when the psychological construct is narrow in scope and complexity [@fuchsUsingSingle2009; @matthewsNormalizingUse2022].
-For such homogeneous constructs, it should be simpler to construct a single item that captures the essence of the construct and is interpreted similarly by the target population.
-In this sense, our application of constructing psychological scales for the physical traits height, weight, and age should have been a very favorable setting.
-For more heterogeneous and complex constructs like personality traits, it should be harder to capture the whole construct in one item without ambiguity [although the possibility that abstract single-item measures might be useful for the most complex constructs where it is almost impossible to add one item for each content aspect has also been discussed, see @fuchsUsingSingle2009].
-If done nonetheless, we must assume that the single-item measure contains a unique weighting of the multiple content aspects of the construct.
-Thus, we would only expect the single-item measure to have a very high or the highest loading relative to other items of a multi-item scale, if the aspect of the construct that is most strongly represented by the single-item measure also has the biggest contributions in the corresponding multi-item scale.
-However, note that in situations where we would not expect the highest loading for the single-item measure because the measured construct is rather heterogeneous, it can be questioned whether a one-dimensional latent variable model should be applied for the items of such a scale anyway because there will probably be more than one factor and/or correlated errors.
-To summarize, we agree with the literature that one should not blindly expect a single-item measure to have the highest loading when combined with the items of a corresponding multi-item scale without further consideration.
-Instead, we recommend researchers to carefully compare the construct definitions of the newly constructed multi-item scale and the existing single-item measure before performing the validation study.
-Based on this theoretical analysis, it should be possible to form a rough hypothesis about the expected size for the loading of the single-item measure that is more informative than just assuming that the loading has to be greater than zero.
+What plausible reasons might explain why a single-item measure does not exhibit the highest loading relative to items from a corresponding multi-item scale?
+Prior research suggests that single-item measures are most effective when the underlying psychological construct is narrow in scope and low in complexity [@fuchsUsingSingle2009; @matthewsNormalizingUse2022].
+For such homogeneous constructs, it is comparatively easy to formulate an item that captures the construct's core meaning and is interpreted consistently across respondents.
+From this perspective, our application of constructing psychological scales for physical traits such as height, weight, and age should have provided particularly favorable conditions.
+In contrast, more heterogeneous and complex constructs, such as personality traits, are inherently more difficult to capture with a single item without introducing ambiguity.
+Although it has been argued that highly abstract single-item measures may still be useful for such constructs, especially when it is impractical to cover each content facet with an item [@fuchsUsingSingle2009], any single-item measure in this context reflects a specific weighting of the construct's multiple aspects.
+Consequently, a single-item measure can be expected to show the highest loading only if the aspect it emphasizes is also the dominant component in the corresponding multi-item scale.
+More generally, if a construct is sufficiently heterogeneous that no single item can be expected to dominate, it is questionable whether a unidimensional latent variable model is appropriate in the first place, as multiple factors and/or correlated errors are likely.
+In sum, we concur with prior literature that one should not assume that a single-item measure will necessarily exhibit the highest loading when combined with items from a corresponding multi-item scale.
+Instead, researchers should carefully compare the construct definitions underlying the multi-item scale and the single-item measure prior to validation.
+Such a theoretical analysis allows for the formulation of more informative expectations regarding the magnitude of the single-item loading than the minimal assumption that it merely differs from zero.
 
-But what can be done in practice if there is no validated single-item measure available that closely matches the construct definition of our newly constructed scale?
-Can we still use a gold-standard item in a less strict sense?
-We argue that there will still be settings in which this makes sense and finding appropriate gold-standard items is rather straightforward. 
-For example, consider adjectives for measuring personality and let us assume that we try to measure the latent variable *interpersonal warmth* with the following adjectives: *affectionate*, *friendly*, *talkative*, *unprejudiced*. We ask how well each adjective describes yourself from *not at all* (1) to *fully and entirely* (6) with six response categories. 
-If these items actually measure interpersonal warmth, they should also correlate with the adjective *warm* measured with the same response format.
-Even more, we would argue that one should at least question the definition and intended verbal label of the construct, if it turns out that this item does not have the highest loading in a one-factor model when combined with the other items of the scale.
-Otherwise, a different construct is probably measured; e.g., *friendliness* if the adjective *friendly* has the highest loading on the latent variable.
-Thus, the *warm* item could be considered a gold-standard item quite similar to our examples with physical traits.
-This brings us to the interesting question, whether the gold-standard item in this case should be part of the final scale or not.
+But what can be done in practice if no validated single-item measure closely matches the construct definition of a newly constructed scale?
+Can gold-standard item still be defined in a broader sense?
+We argue that there are many settings in which this is both feasible and informative.
+Consider, for example, the measurement of personality using adjectives.
+Suppose we aim to assess the latent variable *interpersonal warmth* with items such as *affectionate*, *friendly*, *talkative*, *unprejudiced*, each rated on a scale from *not at all* (1) to *fully and entirely* (6) with six response categories. 
+If these items indeed capture interpersonal warmth, they should also correlate with the adjective *warm* measured using the same response format.
+More importantly, one might question the construct definition itself if this straightforward item does not exhibit the highest loading in a one-factor model when included alongside the other items.
+In such cases, it is plausible that a different construct is being measured, for instance, *friendliness*, if the item *friendly* shows the highest loading.
+In this sense, the item *warm* can serve as a natural gold-standard item, analogous to the role of gold-standard indicators in our example involving physical traits.
+This raises the further question of whether such an item should be included in the final scale.
 We would argue that this depends on the concrete setting and cannot be answered in general.
 Assume our newly constructed *interpersonal warmth* scale was always supposed to also include an item that is the adjective *warm*. 
 This item would clearly match the intended label of the construct most directly.
