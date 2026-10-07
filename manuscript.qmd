@@ -166,7 +166,7 @@ However, he argues that because differences in height do influence behavior, it 
 Noted as a limitation by the author himself, his dataset did not include a physical height measurement for comparison.
 
 In contrast, @bortolottiRelevanceAdvantagesUsing2013 compared psychological and physical measurements to demonstrate the validity of psychological measurements and the practical utility of psychological measurement models.
-They also constructed a 27-item scale to assess body height using a two-category response format.
+They also constructed a 27-item scale to assess body height using a binary response format.
 Participants from Brazil were asked to respond to items such as "Do I think, I would do well in a basketball team?" [@bortolottiRelevanceAdvantagesUsing2013, p. 2350].
 At the end of the scale, participants also indicated their actual height in centimeters, a self-reported physical gold-standard item.
 Bortolotti et al. compared the parameters estimated from the latent variable body height  with the response on the gold-standard item.
@@ -240,7 +240,7 @@ Based on these survey responses, we excluded items if a) their main item loading
 More details on the item construction process can be found in @eichhornItem2019.
 We recomputed the exploratory factor analyses, item total correlations, and reliability estimates that were computed in this final item selection stage and report them in our electronic supplementary materials (ESM C). Based on these criteria, 12 final items were selected for each physical trait (see @tbl-5).[^notewording]
 For each of the three questionnaires, we created two versions – one with two response categories combining verbal labels ("does not apply" and "applies") with numeric anchors (numbers 0 and 1) and one with six response categories combining verbal endpoints ("does not apply" to "applies", only endpoints were labeled) with full numeric anchoring (numbers from 1 to 6).
-The 2-point scale version was included because we wanted to replicate the results by @bortolottiRelevanceAdvantagesUsing2013 and @vanderlindenUnidimensionalLogisticResponse2016, who also used a binary response format, and because this is an important response format in clinical psychology and medicine. The 6-point scale version was used as a robustness check to ensure that our results hold for ordinal response formats, which are common in practice, and to replicate the common finding that reliability estimates are higher for scales with more than two response categories [@prestonOptimalNumberResponse2000].
+The two-category scale version was included because we wanted to replicate the results by @bortolottiRelevanceAdvantagesUsing2013 and @vanderlindenUnidimensionalLogisticResponse2016, who also used a binary response format, and because this is an important response format in clinical psychology and medicine. The six-category scale version was used as a robustness check to ensure that our results hold for ordinal response formats, which are common in practice, and to replicate the common finding that reliability estimates are higher for scales with more than two response categories [@prestonOptimalNumberResponse2000].
 Using six response categories is an obvious synthesis of the literature, favoring a higher number of response categories [@prestonOptimalNumberResponse2000] whilst avoiding a middle category [@masudaRespondentsLowMotivation2017].
 However, we acknowledge that the evidence is not clear-cut and other experts prefer five or seven categories.
 We decided against including additional questionnaires with other response formats to ensure a sufficient sample size for each version.
@@ -254,7 +254,7 @@ First, we specified one-factor models with no error correlations and with correl
 In both models, the gold-standard items and the other 12 items were specified as indicators of a single latent variable.
 Second, to test whether an interpretable latent variable remains after controlling for the gold-standard item and gender, one-factor models were specified with a single latent variable, with the questionnaire items additionally predicted by the gold-standard item and gender.[^noteresidualmodel]
 Third, to compare the correlations between the latent variables of the physical traits with the correlations between the gold-standard items, one full three-factor model without correlated errors was estimated, in which only the questionnaire items load on their respective latent variable, and correlations are estimated between the latent variables, between the gold-standard items, and between the latent variables and the gold-standard items. We also conducted reliability analyses using the package *MBESS* [@R-MBESS] and report McDonald's Omega as the reliability estimate of internal consistency for each scale.
-All analyses were ran separately for both response formats (2-point and 6-point scales). 
+All analyses were ran separately for both response formats (two-category and six-category scales). 
 
 [^noteresidualmodel]: Under the assumption that the gold-standard item closely represents the true physical trait, this analysis can be interpreted as a two-dimensional factor model where the latent variable is a second (psychological) factor independent of the physical trait (after controlling for gender). In our special case of investigating physical traits, we would argue that this analysis is more informative about the dimensionality of the scales than (a more common) exploratory factor analysis.
 
@@ -273,7 +273,7 @@ The total sample of our main study consisted of `r nrow(dat_desc)` participants 
 The overall sample consisted of two independent subsamples, which were divided into the conditions with two ($N$ = `r nrow(dat_desc[dat_desc$categories == "2 categories",])`) and six ($N$ = `r nrow(dat_desc[dat_desc$categories == "6 categories",])`) response categories.
 
 Participants were recruited in trains, colleges, universities, adult education centers, fitness studios, and various public places in Germany and Austria in November and December 2017. Participation was voluntary and without reimbursement. Each participant was given a piece of paper informing them about the voluntary and anonymous nature of their participation, the purpose of the study, and the data to be collected.
-Upon providing consent, participants received one of two paper-and-pencil questionnaire versions: one using the 2-point and the other using the 6-point response scale.
+Upon providing consent, participants received one of two paper-and-pencil questionnaire versions: one using the two-category and the other using the six-category response scale.
 The two versions were alternated as questionnaires were handed out to participants.
 When a participant returned the questionnaire, the facilitator immediately checked for missing values and, if any were found, politely asked the participant to complete the missing questions.
 With this procedure, we achieved complete responses for all questionnaires.
@@ -386,13 +386,13 @@ The goal of this study was to evaluate newly constructed psychological scales us
 Using confirmatory factor analysis, we found that, contrary to our assumptions, even in this ideal setting, gold-standard items did not exhibit the highest loadings on their corresponding latent variables for all physical traits.
 After controlling for the gold-standard item and gender, we observed a residual psychological component for all traits, but the interpretation of this latent variable was not straightforward.
 The correlations between the latent variables also did not closely match those between the gold-standard items.
-All results were highly similar across questionnaire versions with two and six response categories, although reliability estimates were slightly lower for the two-category category versions.
+All results were highly similar across questionnaire versions with two and six response categories, although reliability estimates were slightly lower for the two-category versions.
 
 ## Gold-Standard Items for Physical Traits
 
 Despite the favorable setting when constructing psychological scales for physical traits and our carefully curated scale-construction process, gold-standard items did not fully function as expected with respect to our theoretical assumptions.
 Only on one of six scales (three physical traits measured via two response-scale versions each) did the gold-standard item exhibit a higher loading on the latent variable than the psychological items.
-That was on the six-category scale for body height, but not on the two-response-category version.
+That was on the six-category scale for body height, but not on the two-category version.
 The scales for body weight and chronological age did not yield higher correlations between the latent variable and their gold-standard items than between the latent variable and the other items on the scale.
 Considering both the size and the measurement uncertainty of the factor loadings, it seems evident that the gold-standard items for weight and age loaded substantially lower on the latent variable than the best items of the respective scales.
 This finding raises questions about whether our psychological scales for weight and age accurately measure the physical traits they were designed to assess.
@@ -414,7 +414,7 @@ The comparison does not suggest that our scales have unique problems, as we were
 [^extremewording]: For example, one reviewer questioned why many of our items use quite extreme item wording (e.g. "I have already lived most of my life") and pondered whether this might explain why our scales did work as expected. However, our cognitive interviews and pilot tests suggested that -- maybe surprisingly -- these items worked best to assess height, weight or age.
 
 It is also noteworthy that our results where surprisingly robust across different response formats, with very similar findings for questionnaire versions with two and six response categories.
-We used a 6-point response format to align with literature advising against the use of a middle category (TODO REF), and a 2-point format because it is widely used in symptom questionnaires within clinical psychology and medicine (TODO REF).
+We used a six-category response format to align with literature advising against the use of a middle category (TODO REF), and a two-category format because it is widely used in symptom questionnaires within clinical psychology and medicine (TODO REF).
 As expected, reliability estimates were slightly higher for scales with six response categories than for those with two [@prestonOptimalNumberResponse2000].
 However, the results for model fit and validity were mixed.
 Some fit indices suggested a slightly better fit for items with two response categories and some for six categories (although the differences were rather small).
@@ -423,8 +423,8 @@ Except for reliability, our results do not clearly favor either two or six respo
 While we would not expect substantially different results for scales with five or seven response categories, we cannot generalize our results to response formats that include a middle category (we only used formats without a middle category) or to response formats where all categories are labeled (we only labeled the endpoints).
 Hilbert et al. [-@hilbertInfluenceResponseFormat2016; -@hilbertWhatMeasureEmpirical2022] showed that the same items, when measured with different numbers of response categories, do not necessarily measure the same latent variable.
 Thus, the selection of the response format may affect validity, prompting us to advise questionnaire developers to carefully consider the number of response categories when constructing psychological scales.
-<!-- We used a 6-point response format because this is our own personal preference which aligns with the part of the literature advising against using a middle category. -->
-<!-- The 2-point response format was chosen because it is a qualitatively different format that is extensively used for symptom questionnaires in clinical psychology and medicine. -->
+<!-- We used a six-category response format because this is our own personal preference which aligns with the part of the literature advising against using a middle category. -->
+<!-- The two-category response format was chosen because it is a qualitatively different format that is extensively used for symptom questionnaires in clinical psychology and medicine. -->
 <!-- When we consult on how to constructing psychological scales, we always advise our clients that the number of response categories should be considered carefully. -->
 An intensive cognitive pretesting phase can help clarify how respondents use and understand the categories, and empirical studies can help determine the number of response categories that provide better validity, reliability, and/or factor structures [@willisWhatDo2013].
 In the current study, pretesting and final results suggest that both applied response formats performed reasonably well.
