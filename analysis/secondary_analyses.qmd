@@ -188,6 +188,7 @@ table5 <- table5 |>
   flextable::bold(i = 15:21, bold = FALSE) |>
   flextable::bg(i  = 14, bg = "grey90") |>
   
+  flextable::fit_to_width(max_width = 16, unit = "cm") |>
   flextable::theme_apa() |>
   ftExtra::colformat_md()
 

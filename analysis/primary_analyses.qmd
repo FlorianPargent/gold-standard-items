@@ -59,6 +59,7 @@ table1 <- dat_desc |>
     `Mother tongue` = factor(`Mother tongue`, levels = 1:2, labels = c("German", "Other"))) |>
   flextable::summarizor(by = "categories") |>
   flextable::as_flextable() |>
+  flextable::fit_to_width(max_width = 16, unit = "cm") |>
   flextable::theme_apa() |>
   ftExtra::colformat_md()
 table1
@@ -194,6 +195,7 @@ table2 <- table2 |>
   flextable::bold(i = 15:21, bold = FALSE) |>
   flextable::bg(i  = 14, bg = "grey90") |>
   
+  flextable::fit_to_width(max_width = 16, unit = "cm") |>
   flextable::theme_apa() |>
   ftExtra::colformat_md()
 table2
@@ -355,6 +357,7 @@ table3 <- load_df_bifac_proc |>
   flextable::bold(i = ~ abs(parse_number(weight_Koerpergewicht_realW)) > 0.6, j = "weight_Koerpergewicht_realW") |>
   flextable::bold(i = ~ abs(parse_number(weight_Geschlecht)) > 0.6, j = "weight_Geschlecht") |>
   
+  flextable::fit_to_width(max_width = 16, unit = "cm") |>
   flextable::theme_apa() |>
   ftExtra::colformat_md()
 table3
@@ -540,6 +543,7 @@ table4 <- flextable::flextable(cor_table) |>
   flextable::bg(i  = 2, j = c(4, 5), bg = "grey90") |>
   flextable::bg(i  = 3, j = c(6, 7), bg = "grey90") |>
   
+  flextable::fit_to_width(max_width = 16, unit = "cm") |>
   flextable::theme_apa() |>
   ftExtra::colformat_md()
 table4
