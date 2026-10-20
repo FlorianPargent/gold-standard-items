@@ -45,9 +45,15 @@ author:
         department: Institute of Psychology
         city: Neubiberg
         country: Germany
+  - name: Sven Hilbert
+    orcid: 0000-0001-5808-8357
+    role:
+      - conceptualization
+      - supervision
+      - editing
+    affiliations:
+      - ref: regen
   - name: Markus Bühner
-    corresponding: true
-    email: buehner@lmu.de
     orcid: 0000-0002-0597-8708
     role: 
       - formal analysis
@@ -83,12 +89,6 @@ author:
         city: Munich
         country: Germany
       - ref: lmu
-  - name: Larissa Sust
-    orcid: 0000-0002-3389-1626
-    role:
-      - editing
-    affiliations:
-      - ref: lmu
   - name: Jonas Hauck
     orcid: 0009-0002-8872-0530
     role:
@@ -99,14 +99,15 @@ author:
         department: Faculty of Human Sciences
         city: Regensburg
         country: Germany
-  - name: Sven Hilbert
-    orcid: 0000-0001-5808-8357
+  - name: Larissa Sust
+    corresponding: true
+    email: larissa.sust@psy.lmu.de
+    orcid: 0000-0002-3389-1626
     role:
-      - conceptualization
-      - supervision
-      - editing
+      - writing
+      - validation
     affiliations:
-      - ref: regen
+      - ref: lmu
     
 author-note:
   disclosures:
@@ -116,7 +117,7 @@ author-note:
     gratitude: ~
     authorship-agreements: ~
 language:
-  title-block-role-introduction: "Kathryn Eichhorn and Markus Bühner contributed equally to this manuscript. Author roles were classified using the Contributor Role Taxonomy (CRediT; <https://credit.niso.org/>):"
+  title-block-role-introduction: "Kathryn Eichhorn and Sven Hilbert contributed equally. Author roles were classified using the Contributor Role Taxonomy (CRediT; <https://credit.niso.org/>):"
 abstract: "This article investigates whether gold-standard items are helpful for questionnaire development. Based on an initial item pool (138 items) derived through a deductive item construction ($N$ = 124) and prototype approach ($N$ = 24), followed by cognitive interviews ($N$ = `r nrow(dat_interviews)`) and a pilot study ($N$ = `r nrow(dat_pilot)`) of a preliminary item set (61 items), three 12-item scales were constructed to measure the physical traits of body height, body weight, and age. We collected data on these scales using response formats with either two ($N$ = `r nrow(dat_dich)`) or six ($N$ = `r nrow(dat_poly)`) categories. We also collected numeric self-reports of body weight, body height, and age as gold-standard items. We argue that the items intended to measure the latent variable (i.e., body height, body weight, age) most directly (i.e., the gold-standard items) should have the highest loadings on that variable. Contrary to this assumption, confirmatory factor analyses revealed that the gold-standard items did not consistently exhibit the highest loadings on their corresponding latent variables, calling into question the content validity of our scales. Furthermore, when controlling for the self-reported physical body height, body weight, and age as gold-standard items, as well as gender, we did not always find an interpretable, systematic residual variance. Finally, the pattern of correlations among the latent variables did not closely reflect those among the self-reported gold-standard items, suggesting that the item scales and the gold-standard items do not share the same validity. While these results are consistent with previous studies, our analyses also showed that items with two response categories were at least as valid as those with six categories, contradicting past recommendations. Our analyses underscore the importance of intensive cognitive pretesting in scale construction and suggest that questionnaires using different response formats should be compared empirically and that hypotheses about which items best represent the latent variable should be tested."
 keywords: [confirmatory factor analysis, content validity, item responses, latent variables, questionnaire development]
 license: CC BY 4.0
