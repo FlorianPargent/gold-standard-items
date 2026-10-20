@@ -331,7 +331,7 @@ All model fits were within the expected range for psychological questionnaires [
 Questionnaires with two response categories showed slightly better fit than those with six categories with respect to the CFI and the RMSEA, but slightly worse fit with respect to the SRMR. 
 The best model fit was observed for the psychological scales for body height and weight with two response categories.
 
-[^dynamicfit]: For readers particularly interested in absolute model fit, we also report dynamic fit index cut-offs [@mcneishDynamicFit2021] for the one-factor models of height, weight, and age for two- and six-response categories in our electronic supplemental materials (ESM A).
+[^dynamicfit]: For readers particularly interested in absolute model fit, we also report dynamic fit index cut-offs [@mcneishDynamicFitIndex2023] for the one-factor models of height, weight, and age for two- and six-response categories in our electronic supplemental materials (ESM A).
 
 ```{r}
 # correlation of loadings between cfa models with and without correlated errors
@@ -489,6 +489,8 @@ We would argue that this decision depends on the specific research context and c
 If the scale was originally intended to include an item directly reflecting the construct label (e.g., warm), its inclusion would be conceptually straightforward.
 However, even if this were not the case, the structure of adjective-based questionnaires makes it difficult to justify omitting the most direct representation of the construct from empirical consideration.
 Ultimately, the decision of whether such items are retained as part of the final scale or used solely for validation purposes remains a matter of researcher judgment.
+Future studies should investigate different strategies of finding gold-standard items in more detail.
+For example, we are interested in using digital behavioral indicators from mobile sensing [@schoedelFromDigital2026; @schoedelMobileSensing2024] to validate scales with behavior-based definitions like some personality facets.
 
 Despite these examples, we acknowledge that there will be many instances in which new psychological scales are constructed when when theoretically strong gold-standard items are not available, and our suggested evaluation strategy cannot be readily applied.
 This should not be a problem, as it does not, in theory, invalidate the settings already discussed in which the strategy is meaningful.
