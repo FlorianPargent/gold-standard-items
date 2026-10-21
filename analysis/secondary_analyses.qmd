@@ -36,9 +36,9 @@ papaja::r_refs(file = "../r-references.bib")
 
 ```{r}
 dat_poly <- read.spss("../data/Haupterhebung Studie III (Polytom 6PS).sav", 
-  to.data.frame = TRUE, use.value.labels = FALSE, na.omit = TRUE)
+  to.data.frame = TRUE, use.value.labels = FALSE)
 dat_dich <- read.spss("../data/Haupterhebung Studie III (Dichotom 2PS).sav",
-  to.data.frame = TRUE, use.value.labels = FALSE, na.omit = TRUE)
+  to.data.frame = TRUE, use.value.labels = FALSE)
 ```
 
 # Fit and analyze CFA models with correlated errors

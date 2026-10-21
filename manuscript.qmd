@@ -8,16 +8,25 @@ library(flextable)
 library(tidyverse)
 library(foreign)
 dat_poly <- read.spss("data/Haupterhebung Studie III (Polytom 6PS).sav", 
-  to.data.frame = TRUE, use.value.labels = FALSE, na.omit = FALSE)
+  to.data.frame = TRUE, use.value.labels = FALSE)
 dat_dich <- read.spss("data/Haupterhebung Studie III (Dichotom 2PS).sav",
-  to.data.frame = TRUE, use.value.labels = FALSE, na.omit = FALSE)
+  to.data.frame = TRUE, use.value.labels = FALSE)
 dat_desc <- bind_rows(
   dat_poly |> select(Geschlecht, Bildung, Muttersprache, Alter_realW) |> mutate(categories = "6 categories"),
   dat_dich |> select(Geschlecht, Bildung, Muttersprache, Alter_realW) |> mutate(categories = "2 categories"))
 dat_interviews <- read.spss("data/Stichprobe kognitive Interviews.sav", 
-  to.data.frame = TRUE, use.value.labels = FALSE, na.omit = FALSE)
+  to.data.frame = TRUE, use.value.labels = FALSE)
+dat_interviews$Bildungsniveau <- NULL # all values are NA in this column
 dat_pilot <- read.spss("data/Pilottest_Studie_3.sav", 
-  to.data.frame = TRUE, use.value.labels = FALSE, na.omit = FALSE)
+  to.data.frame = TRUE, use.value.labels = FALSE)
+# Ensure that all datasets contain no missing values!
+# (some computations in this file would be wrong if NAs were present)
+stopifnot(
+  !anyNA(dat_poly),
+  !anyNA(dat_dich),
+  !anyNA(dat_interviews),
+  !anyNA(dat_pilot)
+)
 
 results <- readRDS("results/results.rds")
 results_secondary <- readRDS("results/results_secondary.rds")

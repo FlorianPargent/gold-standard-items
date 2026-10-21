@@ -35,7 +35,7 @@ papaja::r_refs(file = "../r-references.bib")
 
 ```{r}
 dat_pilot <- read.spss("../data/Pilottest_Studie_3.sav", 
-  to.data.frame = TRUE, use.value.labels = FALSE, na.omit = FALSE)
+  to.data.frame = TRUE, use.value.labels = FALSE)
 ```
 
 # Exploratory factor analysis
