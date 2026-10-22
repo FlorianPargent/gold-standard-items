@@ -47,6 +47,19 @@ fit <- fa(dat_pilot |> select(KGr_22:KGr_40),
 print(fit, sort = TRUE, cut = 0.15)
 ```
 
+## Confidence intervals for EFA loadings
+
+```{r}
+# we have to fit the efa again, because nice printing and sorting of loadings does not work if confidence intervals are computed
+set.seed(42)
+fit2 <- fa(dat_pilot |> select(KGr_22:KGr_40), 
+  nfactors = 3, rotate = "Promax", fm = "ml",
+  n.iter = 2000, p = 0.05)
+
+out <- capture.output(print(fit2, sort = TRUE))
+cat(out[105:(length(out)-5)], sep = "\n")
+```
+
 # Reliability estimates and item total correlations for each scale
 
 ```{r}
