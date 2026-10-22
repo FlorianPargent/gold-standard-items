@@ -258,6 +258,10 @@ Based on these survey responses, we excluded items if a) their highest loading w
 More details on the item construction process can be found in @eichhornItem2019.
 We recomputed the exploratory factor analyses, item total correlations, and reliability estimates that were computed in this final item selection stage and report them in our electronic supplementary materials (ESM C).
 
+No power analysis was performed to determine the sample size of the pilot study.
+Instead, the goal was to collect data from approximately 150 subjects.
+No data was analyzed before data collection ended.
+
 ### Final Scales
 
 Based on these criteria, 12 final items were selected for each physical trait (see @tbl-5).[^notewording]
@@ -289,7 +293,7 @@ The reason for this deviation is that our general understanding of what we can l
 In fact, the preregistration did not include the concept of gold-standard items or the detailed assumptions discussed in this manuscript. Instead, the registered research question was kept vague: *"The main research question is how well the items represent the real score values. More precisely, is it possible to construct a questionnaire, following the best practice of test construction, to measure a variable that we claim to measure."*
 The results of the preregistered analyses are fully reported in @eichhornItem2019. Note that no results in this manuscript are in conflict with any of the preregistered analyses. Both the current manuscript and the preregistration state that all analyses should be considered exploratory.
 
-## Sample
+## Participants
 
 The total sample of our main study consisted of `r nrow(dat_desc)` participants aged between `r min(dat_desc$Alter_realW)` and `r max(dat_desc$Alter_realW)` years (*M* = `r printnum(mean(dat_desc$Alter_realW))`, *SD* = `r printnum(sd(dat_desc$Alter_realW))`), including `r nrow(dat_desc[dat_desc$Geschlecht == 1,])` women (`r round(nrow(dat_desc[dat_desc$Geschlecht == 1,]) / nrow(dat_desc) * 100)`%) and `r nrow(dat_desc[dat_desc$Geschlecht == 2,])` men (`r round(nrow(dat_desc[dat_desc$Geschlecht == 2,]) / nrow(dat_desc) * 100)`%). 
 The overall sample consisted of two independent subsamples, which were divided into the conditions with two ($N$ = `r nrow(dat_desc[dat_desc$categories == "2 categories",])`) and six ($N$ = `r nrow(dat_desc[dat_desc$categories == "6 categories",])`) response categories.
@@ -299,7 +303,10 @@ Upon providing consent, participants received one of two paper-and-pencil questi
 The two versions were alternated as questionnaires were handed out to participants.
 When a participant returned the questionnaire, the facilitator immediately checked for missing values and, if any were found, politely asked the participant to complete the missing questions.
 With this procedure, we achieved complete responses for all questionnaires.
-No power analysis was performed to determine the sample size. Instead, the goal was to collect at least 500 subjects per response format condition over a period of six weeks. No data was analyzed before data collection ended.
+
+No power analysis was performed to determine the sample size of the main study.
+Instead, the goal was to collect at least 500 subjects per response format condition over a period of six weeks.
+No data was analyzed before data collection ended.
 The final sample size of our main study is typical of those used in current validation studies that publish diagnostic results. According to @goretzkoEvaluatingModelFit2024, the sample sizes used in typical validation studies in the journal Psychological Assessment from 2015 to 2020 were as follows: about 38 percent used sample sizes of 401 to 1000, and 25 percent sample sizes larger than 1000.
 
 @tbl-1 shows the distribution of age, gender, level of education, and native language for each response format. As a result of the allocation procedure, the two subsamples are very similar. Due to the left-skewed age distribution and outlier values, we report both the mean and the median. 
