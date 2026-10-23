@@ -14,7 +14,7 @@ manuscript:
       title: "ESM C: Tertiary analyses (scale construction)"
 
 format:
-  apaquarto-html:
+  html: # change back to apaquarto-html when bug is fixed
     suppress-title-introduction: true
     suppress-title: false
     toc: true

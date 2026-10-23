@@ -38,7 +38,7 @@ papaja::r_refs(file = "r-references.bib")
 title: "Evaluating Psychological Scales with Gold-Standard Items: Lessons from Measures of Body Height, Weight, and Age"
 shorttitle: "Evaluating Scales with Gold-Standard Items"
 date: 2025-07-18
-date-modified: 2026-04-15
+date-modified: 2026-10-23
 date-format: iso
 author:
   - name: Kathryn Eichhorn
@@ -62,6 +62,15 @@ author:
       - editing
     affiliations:
       - ref: regen
+  - name: Florian Pargent
+    orcid: 0000-0002-2388-553X
+    role:
+      - formal analysis
+      - software
+      - validation
+      - writing
+    affiliations:
+      - ref: lmu
   - name: Markus Bühner
     orcid: 0000-0002-0597-8708
     role: 
@@ -76,15 +85,6 @@ author:
         city: D-80802 Munich
         country: Germany
         postal-code: 80802
-  - name: Florian Pargent
-    orcid: 0000-0002-2388-553X
-    role:
-      - formal analysis
-      - software
-      - validation
-      - writing
-    affiliations:
-      - ref: lmu
   - name: Janika Saretzki
     orcid: 0000-0002-6536-8266
     role:
@@ -120,13 +120,13 @@ author:
     
 author-note:
   disclosures:
-    data-sharing: This is version 3 (last modification {{< meta date-modified >}}) of our preprint published on PsyArXiv at <https://doi.org/10.31234/osf.io/r259d_v2>. All materials (reproducible manuscript, analysis code, datasets, codebooks, questionnaires) are available in the project's repository on the Open Science Framework (OSF) at <https://osf.io/p7492/>. A Quarto Manuscript website is hosted at <https://florianpargent.github.io/gold-standard-items/>. The data have previously been analyzed in the dissertation thesis of the first author at <https://doi.org/10.5282/edoc.23628>. As part of the dissertation, a preregistration was published at <https://osf.io/cz3uv/?view_only=9cac02db231b48629fea9ae53c3038b9> that differs from the analyses reported in the current manuscript.
+    data-sharing: This is version 3 (last modification {{< meta date-modified >}}) of our preprint published on PsyArXiv at <https://doi.org/10.31234/osf.io/r259d_v3>. All materials (reproducible manuscript, analysis code, datasets, codebooks, questionnaires) are available in the project's repository on the Open Science Framework (OSF) at <https://osf.io/p7492/>. A Quarto Manuscript website is hosted at <https://florianpargent.github.io/gold-standard-items/>. The data have previously been analyzed in the dissertation thesis of the first author at <https://doi.org/10.5282/edoc.23628>. As part of the dissertation, a preregistration was published at <https://osf.io/cz3uv/?view_only=9cac02db231b48629fea9ae53c3038b9> that differs from the analyses reported in the current manuscript.
     conflict-of-interest: The authors declare that they have no financial conflicts of interest in relation to the content of the article and have no non-financial conflicts of interest.
     financial-support: ~
     gratitude: ~
     authorship-agreements: ~
 language:
-  title-block-role-introduction: "Kathryn Eichhorn and Sven Hilbert contributed equally. Author roles were classified using the Contributor Role Taxonomy (CRediT; <https://credit.niso.org/>):"
+  title-block-role-introduction: "Kathryn Eichhorn and Sven Hilbert contributed equally to this manuscript. Author roles were classified using the Contributor Role Taxonomy (CRediT; <https://credit.niso.org/>):"
 abstract: "This article investigates whether gold-standard items are helpful for questionnaire development. Based on an initial item pool (138 items) derived through a deductive item construction ($N$ = 124) and a prototype approach ($N$ = 24), followed by cognitive interviews ($N$ = `r nrow(dat_interviews)`) and a pilot study ($N$ = `r nrow(dat_pilot)`) of a preliminary item set (61 items), three 12-item scales were constructed to measure the physical traits of body height, body weight, and age. We collected data on these scales using response formats with either two ($N$ = `r nrow(dat_dich)`) or six ($N$ = `r nrow(dat_poly)`) categories. We also collected numeric self-reports of body weight, body height, and age as gold-standard items. We argue that the items intended to measure the latent variable (i.e., body height, body weight, age) most directly (i.e., the gold-standard items) should have the highest loadings on that variable. Contrary to this assumption, confirmatory factor analyses revealed that the gold-standard items did not consistently exhibit the highest loadings on their corresponding latent variables, calling into question the content validity of our scales. Furthermore, when controlling for the self-reported physical body height, body weight, and age as gold-standard items, as well as gender, we did not always find an interpretable, systematic residual variance. Finally, the pattern of correlations among the latent variables did not closely reflect those among the self-reported gold-standard items, suggesting that the item scales and the gold-standard items do not share the same validity. While these results are consistent with previous studies, our analyses also showed that items with two response categories were as valid as those with six categories, contradicting past recommendations. Our analyses underscore the importance of intensive cognitive pretesting in scale construction and suggest that questionnaires using different response formats should be compared empirically and that hypotheses about which items best represent the latent variable should be tested."
 keywords: [confirmatory factor analysis, content validity, item responses, latent variables, questionnaire development]
 license: CC BY 4.0
@@ -276,7 +276,7 @@ We decided against including additional questionnaires with other response forma
 
 ## Statistical Analysis
 
-All analyses for our main study were conducted in `r R.version$version.string`. A full list of software versions can be found in @apx-3. The data were analyzed using confirmatory factor analysis with the package *lavaan* [@R-lavaan]. We used the weighted least squares, mean and variance adjusted (WLSMV) estimator, treating the questionnaire items as ordinal and the self-reported physical gold-standard items body height, body weight, and age as continuous variables.
+All analyses for our main study were conducted in `r R.version$version.string`. A full list of software versions can be found in [@apx-3]{.content-hidden when-format="html"}[the [Appendix](#apx-3)]{.content-visible when-format="html"}. The data were analyzed using confirmatory factor analysis with the package *lavaan* [@R-lavaan]. We used the weighted least squares, mean and variance adjusted (WLSMV) estimator, treating the questionnaire items as ordinal and the self-reported physical gold-standard items body height, body weight, and age as continuous variables.
 First, we specified one-factor models with no error correlations and with correlated errors for each trait.
 In both models, the gold-standard items and the other 12 items were specified as indicators of a single latent variable.
 Second, to test whether an interpretable latent variable remains after controlling for the gold-standard item and gender, one-factor models were specified with a single latent variable, with the questionnaire items additionally predicted by the gold-standard item and gender.[^noteresidualmodel]
@@ -321,6 +321,10 @@ The final sample size of our main study is typical of those used in current vali
 results$table1
 ```
 
+::: {.content-visible when-format="html"}
+*Note.* $SD$ = standard deviation; $IQR$ = interquartile range.
+:::
+
 \
 
 # Results
@@ -338,6 +342,10 @@ results$table1
 
 results$table2
 ```
+
+::: {.content-visible when-format="html"}
+*Note.* CFI = Comparative Fit Index (scaled); RMSEA = Root Mean Square Error of Approximation (scaled); SRMR = Standardized Root Mean Residual. Scaled $\chi^2$, scaled $df$ (degrees of freedom), and scaled *p*-values are reported. Correlations with the latent variable that are higher than those of the self-reported physical item are printed in bold. The standardized item loadings for the self-reported physical items are presented in a grey-shaded box together with 95% confidence intervals.
+:::
 
 \
 
@@ -379,6 +387,10 @@ Even after allowing for correlated errors as suggested by standard modification 
 results$table3
 ```
 
+::: {.content-visible when-format="html"}
+*Note.* Standardized regression weights greater than .60 in absolute value are printed in bold. Latent = standardized item loading on the respective latent variable (height, weight or age); Physical = standardized regression weight, predicting the item response by the respective self-reported physical measures (height, weight or age); Gender = standardized regression weight, predicting the item response by the self-reported gender (positive values imply higher item responses for men).
+:::
+
 \
 
 For body height, we obtained low item loadings on the latent variable but high regression weights with the gold-standard item of physical body height. In particular, the third item ("Chairs and tables are usually too low for me.") exhibited the highest loading on the latent variable for both response formats. In contrast, item 11 ("I have to stand at the front of group photos so that I can be seen clearly.") and item 12 ("When I hug other people in greeting, I have to bend downwards.") were best predicted by the self-reported physical body height for both response formats.[^loadingsgreaterone] The absolute values of loadings on the latent variable were highly similar (close to .3) for all items. While this pattern would be consistent with the existence of a psychological latent height component that weakly contributes to the item responses after controlling for the self-reported physical item and gender, the loading pattern did not provide any indication of what this variable might represent.
@@ -404,6 +416,17 @@ As shown in @tbl-4, the correlations among the latent variables do not match the
 
 results$table4
 ```
+
+```{r}
+#| include: false
+note_tbl4 <- paste0("Correlations among the latent variables are shown above the diagonal (in bold), and correlations among the self-reported physical measures are shown below the diagonal. For each response format, the reported correlations were obtained from a latent variable model that included all self-reported physical items and all latent variables with their assigned items. The models showed the following fit: scaled chi-square (six response categories) = ", printnum(results$fullmodelfit6["chisq.scaled"]), ", $df$ = ", results$fullmodelfit6["df"], ", $p$ ", printp(results$fullmodelfit6["pvalue.scaled"]), ", scaled CFI = ", printnum(results$fullmodelfit6["cfi.scaled"], gt1 = FALSE), ", scaled RMSEA = ", printnum(results$fullmodelfit6["rmsea.scaled"], gt1 = FALSE), ", SRMR = ", printnum(results$fullmodelfit6["srmr"], gt1 = FALSE), "; scaled chi-square (two response categories) = ", printnum(results$fullmodelfit2["chisq.scaled"]), ", $df$ = ", results$fullmodelfit2["df"], ", $p$ ", printp(results$fullmodelfit2["pvalue.scaled"]), ", scaled CFI = ", printnum(results$fullmodelfit2["cfi.scaled"], gt1 = FALSE), ", scaled RMSEA = ", printnum(results$fullmodelfit2["rmsea.scaled"], gt1 = FALSE), ", SRMR = ", printnum(results$fullmodelfit2["srmr"], gt1 = FALSE), ". Reliability estimates (Omega) are shown on the diagonal (gray-shaded cells). \\* $p \\leq$ .05, \\*\\* $p \\leq$ .01, \\*\\*\\* $p \\leq$ .001.")
+```
+
+::: {.content-visible when-format="html"}
+
+*Note.* `r note_tbl4`
+
+:::
 
 \
 
@@ -556,6 +579,10 @@ Incorporating these expectations into the validation process can yield stronger,
 ::: {#refs}
 :::
 
+::: {.content-visible when-format="html"}
+# Appendices {.unnumbered}
+:::
+
 # CFA models with correlated errors {#apx-1}
 
 ```{r}
@@ -619,6 +646,19 @@ r_A7_A10_2 <- results_secondary$cor_errors |>
 
 results_secondary$table5
 ```
+
+```{r}
+#| include: false
+note_tbl5 <- paste0('CFI = Comparative Fit Index (scaled). ','RMSEA = Root Mean Square Error of Approximation (scaled). ','SRMR = Standardized Root Mean Residual. ','Scaled chi-square, scaled $df$ (degrees of freedom), and scaled $p$ values are reported. ','Correlations with the latent variable that are higher than those of the self-reported physical item are printed in bold. The standardized item loadings for the self-reported physical items are presented in a grey shaded box together with 95% confidence intervals. ','The following correlated errors were specified according to high modification indices and good interpretability (error correlations for two and six response categories are given in parentheses): ','"I have to look up when I talk to other people." (H10) and "I have to stand at the front of group photos so that I can be seen clearly." (H11) (',printnum(r_H10_H11_2),', ',printnum(r_H10_H11_6),'); ','"In the supermarket, I can reach the things on the top shelf without any problems." (H4) and "I need a chair if I want to get things from the top shelf." (H9) (',printnum(r_H4_H9_2),', ',printnum(r_H4_H9_6),'); ','"I need to lose weight." (W6) and "I should eat less." (W12) (',printnum(r_W6_W12_2),', ',printnum(r_W6_W12_6),'); ','"I have a wide waistband when it comes to pants." (W3) and "My pants have a small waistband." (W7) (',printnum(r_W3_W7_2),', ',printnum(r_W3_W7_6),'); ','"I have a lot of life experience." (A3) and "I have years of work experience." (A9) (',printnum(r_A3_A9_2),', ',printnum(r_A3_A9_6),'); ','"Over time, my mental capacity has decreased." (A2) and "Over time, my memory has deteriorated." (A5) (',printnum(r_A2_A5_2),', ',printnum(r_A2_A5_6),'); ','"I have already lived most of my life." (A7) and "My whole life still lies ahead of me." (A10) (',printnum(r_A7_A10_2),', ',printnum(r_A7_A10_6),').')
+```
+
+::: {.content-visible when-format="html"}
+
+*Note.* `r note_tbl5`
+
+:::
+
+\
 
 # Item translations {#apx-2}
 
