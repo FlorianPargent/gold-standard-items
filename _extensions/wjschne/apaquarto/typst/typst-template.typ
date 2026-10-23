@@ -47,6 +47,57 @@
   body
 }
 
+// A block that stays on the page with the start of the block after it, as a
+// heading does: a figure's number and caption with its picture, and the
+// picture with the first line of its note. sticky is Typst 0.12's; before
+// that the block simply has nothing to hold it.
+#let apasticky = if sys.version >= version(0, 12, 0) { (sticky: true) } else { (:) }
+
+// The leading inside a table for each table-spacing, so that its rows stand
+// 14.5pt, 18pt or 24pt apart at 12pt, as the .pdf sets them with setspace: a
+// line stands its leading plus a capital's height, 0.66em, below the one
+// before.
+#let apatableleadings = (single: 0.54em, onehalf: 0.84em, double: 1.35em)
+
+// The padding and rules of a table pandoc writes, which formattypst.lua hands
+// each table as its inset and stroke with the table's rows and head rows
+// counted, since a cell is told only its own column and row. As the .pdf
+// sets them with booktabs: a cell's text sits where latex's strut puts it,
+// 0.7 of the row above the baseline and 0.3 below, rather than centred; a
+// rule has 0.65ex more below it and 0.4ex more above, booktabs' own
+// \belowrulesep and \aboverulesep (0.29em and 0.18em in Times); and rules go
+// over the table, under its head, and under its last row. The rules and the
+// space by them had been laid down by row number alone, so a table without a
+// head had a rule over its second row, and a rule stood as close to the text
+// as the next row, 2.5pt from a capital at single spacing
+// (tests/layout-table-rules.qmd).
+//
+// The rules are booktabs' weights: 0.08em over and under the table
+// (\heavyrulewidth, about a point at 12pt) and 0.05em under the head
+// (\lightrulewidth). Every rule had been half a point.
+#let apatableheavyrule = 0.08em
+#let apatablelightrule = 0.05em
+#let apatablecells(spacing, rows, head) = {
+  let leading = apatableleadings.at(spacing, default: apatableleadings.double)
+  let above = 0.7 * leading - 0.198em
+  let below = 0.3 * leading + 0.198em
+  let underrule(y) = y == 0 or (head > 0 and y == head)
+  let overrule(y) = (head > 0 and y == head - 1) or y == rows - 1
+  (
+    inset: (x, y) => (
+      x: 5pt,
+      top: above + if underrule(y) { 0.29em } else { 0pt },
+      bottom: below + if overrule(y) { 0.18em } else { 0pt },
+    ),
+    stroke: (x, y) => (
+      top: if y == 0 { apatableheavyrule }
+        else if head > 0 and y == head { apatablelightrule }
+        else { none },
+      bottom: if y == rows - 1 { apatableheavyrule } else { none },
+    ),
+  )
+}
+
 // first-line-indent takes a plain length before typst 0.13 and accepts a
 // dictionary from 0.13 on, where all: true indents the paragraph that opens a
 // section as well as the ones that follow. Everything that sets the indent
@@ -57,12 +108,6 @@
 // all: true changes only the amount and keeps that all: true, so a journal's
 // block quotation, whose body indents every paragraph, had its first
 // paragraph indented whenever it had a second one, an attribution included.
-// A block that stays on the page with the start of the block after it, as a
-// heading does: a figure's number and caption with its picture, and the
-// picture with the first line of its note. sticky is Typst 0.12's; before
-// that the block simply has nothing to hold it.
-#let apasticky = if sys.version >= version(0, 12, 0) { (sticky: true) } else { (:) }
-
 #let apaparindent(amount, all: false) = if sys.version >= version(0, 13, 0) {
   (amount: amount, all: all)
 } else {
@@ -378,11 +423,15 @@
   // running to the margin; notegap is the space between one note and the next.
   noteindent: none,
   notegap: none,
-  // Space above a figure or table, ahead of its "Figure 1" / "Table 1" title.
-  // none follows the body's space between blocks. Typst takes the larger of
+  // Space above and below a figure or table, ahead of its "Figure 1" /
+  // "Table 1" title and after its note. none is a blank line of the body's
+  // spacing, as APA asks of a manuscript. Typst takes the larger of
   // this and whatever the element above asks for below itself, so a float
   // after a section heading keeps the heading's space.
   floatspace: none,
+  // The line spacing of a table's rows: "single", "onehalf" or "double",
+  // from table-spacing. See the table rules below.
+  tablespacing: "double",
   toc: false,
   lang: "en",
   cols: 1,
@@ -507,12 +556,24 @@
 
  
 
-  set table(    
+  // A table's rows stand as far apart as lines at the table spacing
+  // (apatableleadings; tests/layout-table-spacing.qmd), and a cell that wraps
+  // is spaced as its rows are. A table pandoc writes is given its padding and
+  // rules by formattypst.lua (apatablecells); these are for one a package
+  // writes in typst of its own: the cell padded above and below by half the
+  // leading, which spaces a row of one line the same as two lines of one
+  // cell. The rows had Typst's own five points of padding, 18pt apart, while
+  // a cell that wrapped took the body's double spacing.
+  let tableleading = apatableleadings.at(tablespacing,
+    default: apatableleadings.double)
+  set table(
     stroke: (x, y) => (
         top: if y <= 1 { 0.5pt } else { 0pt },
         bottom: .5pt,
-      )
+      ),
+    inset: (x: 5pt, y: tableleading / 2),
   )
+  show table: set par(leading: tableleading, spacing: tableleading)
 
   // The space between two paragraphs is the space between two lines, so
   // that a double-spaced manuscript is double spaced throughout and a journal
@@ -567,7 +628,16 @@
   let qleading = if quoteleading == none { leading } else { quoteleading }
   let qspace = if quotespace == none { spacing } else { quotespace }
   let qindentall = if quoteindentall == none { indentall } else { quoteindentall }
-  let fspace = if floatspace == none { spacing } else { floatspace }
+  // A blank line between a figure or table and the text above and below it,
+  // as APA asks of a manuscript: "If text appears on the same page as a table
+  // or figure, add a double-spaced blank line between the text and the table
+  // or figure." That is the space between two paragraphs and a line more.
+  // Typst sets a line its leading plus the height of a capital (about 0.66em
+  // in Times) below the one before, so in a manuscript this is 40pt, which
+  // stands the float 48pt from the text, as the .pdf's \addvspace does
+  // (tests/layout-float-space.qmd). It had been the paragraph spacing alone,
+  // a line and no blank line. Journal mode gives its own.
+  let fspace = if floatspace == none { spacing + leading + 0.66em } else { floatspace }
 
   let qright = if quoteinsetright == none { quoteinset } else { quoteinsetright }
   // A block quotation is set in a pad of apaquarto's own rather than in the
@@ -639,7 +709,7 @@
         not it.kind.starts-with("quarto-float-")) {
       it
     } else if it.kind == "quarto-float-tbl" {
-      block(width: 100%, breakable: true, above: fspace)[#align(left)[
+      block(width: 100%, breakable: true, above: fspace, below: fspace)[#align(left)[
         #block(breakable: false, ..apasticky)[
           #apafloatlabel(it)
           #par(first-line-indent: 0pt)[#emph[#it.caption.body]]
@@ -647,7 +717,7 @@
         #block[#it.body]
       ]]
     } else {
-      block(width: 100%, breakable: true, above: fspace)[
+      block(width: 100%, breakable: true, above: fspace, below: fspace)[
         #block(breakable: false, ..apasticky)[
           #apafloatlabel(it)
           #align(left)[#par(first-line-indent: 0pt)[#emph[#it.caption.body]]]

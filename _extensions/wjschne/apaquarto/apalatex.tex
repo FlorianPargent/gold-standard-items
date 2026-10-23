@@ -44,9 +44,17 @@
 % \RaggedRight sets \parindent to \RaggedRightParindent, so the indent has to
 % be told to it before it is switched on. Setting \parindent afterwards instead
 % leaves every paragraph flush left.
+%
+% ragged2e's \RaggedRight lets a line fall short of the measure by at most
+% 2em, so where the next word does not fit TeX breaks it at a hyphen instead.
+% APA asks for no hyphenation at the ends of lines. An infinite stretch, which
+% is what LaTeX's own \raggedright has, leaves a short line rather than a
+% broken word. The length is read when \RaggedRight is switched on, so it is
+% set before.
 \setlength{\parindent}{0.5in}
 \setlength{\parskip}{0pt}
 \setlength{\RaggedRightParindent}{0.5in}
+\setlength{\RaggedRightRightskip}{0pt plus 1fil}
 \RaggedRight
 
 % setspace's own double spacing, which is what apa7 uses and which comes to
@@ -496,6 +504,12 @@
   }{%
     \the\apa@lt@foot
     \end{tabular}%
+    % The space after \end{longtable} ignored, as after a list or a
+    % quotation. It sat on the tabular's line, and when the table ran the
+    % full width of the page, as one with a column of text does, it went on
+    % to a second, empty line, which set the note a point lower than under a
+    % narrower table (tests/layout-table-rules.qmd).
+    \global\@ignoretrue
   }}
 \makeatother
 
@@ -660,7 +674,14 @@
 %
 % Figures only. A table follows its title immediately, and apa7 in fact leaves
 % a little less room there than this format already does.
-\newcommand{\apafigureskip}{\vspace{1.2em}}
+%
+% Measured from the caption's baseline: TeX puts the picture under the depth
+% of the line above it, so a caption whose last line had a p or a g in it
+% stood 2pt further off its picture than one that had none. 20pt from the
+% baseline to the picture, as in typst (tests/layout-figure-space.qmd).
+\newcommand{\apafigureskip}{%
+  \par\ifdim\prevdepth>0pt\vskip-\prevdepth\prevdepth=0pt\fi
+  \vspace{1.2em}}
 \newenvironment{apafloatnote}
   {\par\setlength{\parindent}{0pt}\noindent}
   {\par}
@@ -675,6 +696,15 @@
 %
 % The gap is written by floatlatex.lua, which knows a table from a figure. A
 % figure's note follows the picture, which needs no rule cleared.
+% The line spacing of a table's rows, double by default, the body's, which APA
+% allows beside one-and-a-half and single. table-spacing, or a journal or doc
+% mode, asks for one of the others, which formatlatex.lua writes here as
+% setspace's stretch for it: 1 or 1.25. floatlatex.lua sets a table pandoc writes in a group that takes this
+% spacing, and the title, caption and note around it keep the body's. A table
+% a package writes in latex of its own keeps its own spacing.
+\newcommand{\apatablestretch}{1.667}
+\newcommand{\apatablespacing}{\setstretch{\apatablestretch}\selectfont}
+
 \newlength{\apatablenotegap}
 \setlength{\apatablenotegap}{0.5em}
 \newcommand{\apatablenoteskip}{\par\vspace{\apatablenotegap}}

@@ -399,6 +399,48 @@ local function strip_table_identifier(blocks)
   }
 end
 
+-- Whether a table in the text flow is short enough to be kept whole.
+--
+-- A longtable may break after any row, and a short one was broken where it
+-- happened to fall: the four-row table in example.qmd set its title, head and
+-- first row at the foot of one page and the other three under a repeated head
+-- on the next. A short table is set as a tabular instead, one box, and moved
+-- whole to the next page with its title when it does not fit
+-- (tests/layout-table-whole.qmd).
+--
+-- Only a table pandoc writes is counted, a markdown or knitr::kable one,
+-- since its rows are there to count; a table a package writes in latex of
+-- its own (flextable, kableExtra) is left as it was. Fifteen rows, double
+-- spaced, with the title, caption and head, come to about three quarters of
+-- a page; a table longer than that is better broken over pages than pushed
+-- whole to the next one.
+local short_table_rows = 15
+
+-- Whether a float holds one table pandoc writes, and how many rows it has.
+local function native_table(content)
+  local tables, rows, raw_table = 0, 0, false
+  pandoc.Blocks(floatrecord.as_blocks(content)):walk {
+    Table = function(tbl)
+      tables = tables + 1
+      rows = rows + #tbl.head.rows + #tbl.foot.rows
+      for _, body in ipairs(tbl.bodies) do
+        rows = rows + #body.head + #body.body
+      end
+    end,
+    RawBlock = function(block)
+      if block.format:match("latex") or block.format:match("tex") then
+        raw_table = true
+      end
+    end,
+  }
+  return tables == 1 and not raw_table, rows
+end
+
+local function short_table(content)
+  local native, rows = native_table(content)
+  return native and rows <= short_table_rows
+end
+
 local function processfloat(float)
   -- A panel of a laid-out figure. It is left as it is so that the figure it
   -- belongs to can take it apart and put it in the grid; written out here it
@@ -458,6 +500,10 @@ local function processfloat(float)
   -- its note inside it, since the two move together.
   local floated = mode == "jou" or (not istable and not floatsintext)
   local inflow_figure = (not floated) and (not istable)
+  -- A short table is kept whole: see short_table above.
+  local short = (not floated) and istable and short_table(record.content)
+  -- A table pandoc writes, in the flow, takes the table spacing.
+  local spaced = (not floated) and istable and native_table(record.content)
 
   local blocks = pandoc.List({})
   if floated then
@@ -468,12 +514,41 @@ local function processfloat(float)
     -- its tabular is never ended: the bare \centering kableExtra writes set
     -- every paragraph after the table centred.
     --
-    -- A figure takes no space of its own around it, but stands in the line
-    -- spacing of the text, as typst sets one: a line from the text above to
-    -- its number, and from its note to the text below. The [H] float it was
-    -- before stood \intextsep clear below and not above.
+    -- The space is a blank line of the text's own spacing, above and below,
+    -- for a figure as for a table: "If text appears on the same page as a
+    -- table or figure, add a double-spaced blank line between the text and
+    -- the table or figure" (APA). typst sets the same (floatspace in
+    -- typst-template.typ; tests/layout-float-space.qmd).
+    blocks:insert(raw("\\par\\addvspace{\\baselineskip}\\begingroup"))
+    if istable then
+      -- A table is set flush left, as APA sets one and as .docx and .html
+      -- do; longtable centres one by default, between \LTleft and \LTright
+      -- of \fill. A table package that asks for its own placement, as
+      -- flextable's [c] does, still gets it. And no \LTpost, the 12pt
+      -- longtable leaves under a table: the note under it is spaced by
+      -- \apatablenoteskip alone, and the space after the whole float by the
+      -- \addvspace below. With both, a note stood a line and a half under
+      -- the table's last row (tests/layout-float-space.qmd).
+      --
+      -- Nor the half em of \apatablenotegap, which a journal's table needs
+      -- and this one does not: the note is the next line under the table,
+      -- its capitals 15.5pt under the rule, as in typst. Its baseline stands
+      -- a line under the rule, which leaves half a point more, taken back
+      -- here (tests/layout-table-rules.qmd).
+      blocks:insert(raw("\\setlength{\\LTleft}{0pt}\\setlength{\\LTright}{\\fill}\\setlength{\\LTpost}{0pt}\\setlength{\\apatablenotegap}{-0.5pt}"))
+      -- The space between the caption and the table's top rule, as typst
+      -- leaves it: 15.75pt from the caption's baseline to the rule, measured
+      -- in the ink of both (tests/layout-table-rules.qmd). longtable's own
+      -- is \bigskipamount, 12pt that could stretch or shrink by 4 with the
+      -- page.
+      blocks:insert(raw("\\setlength{\\LTpre}{16pt}"))
+      -- A short table is set as a tabular, one box that cannot break, with
+      -- no indent before it, as journal mode sets every table.
+      if short then
+        blocks:insert(raw("\\apalongtableastabular\\setlength{\\parindent}{0pt}"))
+      end
+    end
     if inflow_figure then
-      blocks:insert(raw("\\par\\begingroup"))
       -- A float sets its contents without a paragraph indent, and a figure's
       -- picture is a paragraph of its own; in the flow it would be indented.
       blocks:insert(raw("\\setlength{\\parindent}{0pt}"))
@@ -481,8 +556,6 @@ local function processfloat(float)
       -- \subcaption, by quarto when the figure has no layout, which stops
       -- the render outside a float. This says the group is a figure.
       blocks:insert(raw("\\captionsetup{type=figure}"))
-    else
-      blocks:insert(raw("\\par\\addvspace{\\baselineskip}\\begingroup"))
     end
     -- The title and caption, kept with the start of the table, or with the
     -- picture and the start of the note: see \apatablekeep in apalatex.tex.
@@ -519,8 +592,25 @@ local function processfloat(float)
   addline:extend(entry)
   addline:insert(pandoc.RawInline("latex", "}"))
   blocks:insert(pandoc.Plain(addline))
-  if not floated and istable then
+  -- A short table's box holds the table as well, and ends after it.
+  if not floated and istable and not short then
     blocks:insert(raw("\\apatablekeepend"))
+  end
+
+  -- The table spaced from the caption's baseline, not from the foot of its
+  -- last line: TeX puts a table under the depth of the line above it, so a
+  -- caption whose last line had a p or a g in it stood 2pt further off the
+  -- table than one that had none (tests/layout-table-rules.qmd).
+  if not floated and istable then
+    blocks:insert(raw("\\par\\ifdim\\prevdepth>0pt\\vskip-\\prevdepth\\prevdepth=0pt\\fi"))
+  end
+
+  -- The space longtable leaves above a table, \LTpre, which a tabular does
+  -- not: a short table stands under its caption as a long one does. Less
+  -- \lineskip, the point TeX puts between a line and a box as tall as a
+  -- tabular, which a longtable's first row, a rule, is not given.
+  if short then
+    blocks:insert(raw("\\par\\vspace{\\dimexpr\\LTpre-\\lineskip\\relax}"))
   end
 
   local panelnotes = nil
@@ -529,14 +619,27 @@ local function processfloat(float)
     blocks:extend(grid)
     panelnotes = notes
   else
+    -- Its rows at the table spacing, double unless table-spacing asks for
+    -- less, in a group of their own so that the note under the table keeps
+    -- the body's (\apatablespacing in apalatex.tex).
+    if spaced then blocks:insert(raw("\\begingroup\\apatablespacing")) end
     blocks:extend(strip_table_identifier(record.content))
+    if spaced then blocks:insert(raw("\\par\\endgroup")) end
   end
 
   local note = note_blocks(record)
-  if inflow_figure then
-    -- The box ends with the picture. With a note to follow, it asks for room
-    -- for the note's first two lines as well, and no break is allowed between
-    -- the picture and the note.
+  if short then
+    -- A tabular is one box on a line of its own, hanging below that line
+    -- by most of its height, and the line under it is spaced from that
+    -- depth: the note came within a point or two of the rule. Measured from
+    -- the rule instead, as it is under a longtable, the note is the next
+    -- line under the table.
+    blocks:insert(raw("\\par\\prevdepth=0pt"))
+  end
+  if inflow_figure or short then
+    -- The box ends with the picture, or with a short table. With a note to
+    -- follow, it asks for room for the note's first two lines as well, and
+    -- no break is allowed between the picture or table and the note.
     if note or panelnotes then
       blocks:insert(raw("\\apafigurekeepend"))
     else
@@ -564,8 +667,6 @@ local function processfloat(float)
 
   if floated then
     blocks:insert(raw("\\end{" .. environment .. "}"))
-  elseif inflow_figure then
-    blocks:insert(raw("\\par\\endgroup"))
   else
     blocks:insert(raw("\\par\\endgroup\\addvspace{\\baselineskip}"))
   end
