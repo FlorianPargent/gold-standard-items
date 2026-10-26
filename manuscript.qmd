@@ -38,7 +38,7 @@ papaja::r_refs(file = "r-references.bib")
 title: "Evaluating Psychological Scales with Gold-Standard Items: Lessons from Measures of Body Height, Weight, and Age"
 shorttitle: "Evaluating Scales with Gold-Standard Items"
 date: 2025-07-18
-date-modified: 2026-10-23
+date-modified: 2026-10-26
 date-format: iso
 author:
   - name: Kathryn Eichhorn
