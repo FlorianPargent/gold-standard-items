@@ -1,5 +1,5 @@
 ---
-title: "Tertiary analyses (scale construction)"
+title: "ESM C: Tertiary analyses (scale construction)"
 format:
   html:
     theme:
@@ -17,7 +17,7 @@ More details on the procedures that were used to construct the final item set us
 
 :::
 
-## Load packages
+# Load packages
 
 ```{r}
 library(foreign)
@@ -31,14 +31,14 @@ library(psych)
 papaja::r_refs(file = "../r-references.bib")
 ```
 
-## Load datasets
+# Load datasets
 
 ```{r}
 dat_pilot <- read.spss("../data/Pilottest_Studie_3.sav", 
-  to.data.frame = TRUE, use.value.labels = FALSE, na.omit = FALSE)
+  to.data.frame = TRUE, use.value.labels = FALSE)
 ```
 
-## Exploratory factor analysis
+# Exploratory factor analysis
 
 ```{r}
 fit <- fa(dat_pilot |> select(KGr_22:KGr_40), 
@@ -47,7 +47,20 @@ fit <- fa(dat_pilot |> select(KGr_22:KGr_40),
 print(fit, sort = TRUE, cut = 0.15)
 ```
 
-### Reliability estimates and item total correlations
+## Confidence intervals for EFA loadings
+
+```{r}
+# we have to fit the efa again, because nice printing and sorting of loadings does not work if confidence intervals are computed
+set.seed(42)
+fit2 <- fa(dat_pilot |> select(KGr_22:KGr_40), 
+  nfactors = 3, rotate = "Promax", fm = "ml",
+  n.iter = 2000, p = 0.05)
+
+out <- capture.output(print(fit2, sort = TRUE))
+cat(out[105:(length(out)-5)], sep = "\n")
+```
+
+# Reliability estimates and item total correlations for each scale
 
 ```{r}
 neg_items <- c("A_13", "A_14", "A_21",
@@ -72,7 +85,7 @@ rel_height
 rel_weight
 ```
 
-## References
+# References
 
 ::: {#refs}
 :::

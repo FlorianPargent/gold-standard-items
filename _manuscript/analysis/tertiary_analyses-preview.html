@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
     <meta charset="utf-8">
-    <meta name="generator" content="quarto-1.7.32">
+    <meta name="generator" content="quarto-1.10.19">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-    <title>Tertiary analyses (scale construction)</title>
+    <title>ESM C: Tertiary analyses (scale construction)</title>
     <style>
-      code{white-space: pre-wrap;}
+      /* Default styles provided by pandoc.
+      ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+      */
       span.smallcaps{font-variant: small-caps;}
-      div.columns{display: flex; gap: min(4vw, 1.5em);}
-      div.column{flex: auto; overflow-x: auto;}
+      div.columns{display: flex; gap: 1.5em;}
+      div.column{flex: auto;}
+      @media screen {
+      div.columns{gap: min(4vw, 1.5em);}
+      div.column{overflow-x: auto;}
+      }
       div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
       ul.task-list{list-style: none;}
       ul.task-list li input[type="checkbox"] {
@@ -174,10 +180,14 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-cb14dbda5391634e2881ab467e788e7e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-b82c343a6993715377ae450cec90078e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-b82c343a6993715377ae450cec90078e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-b82c343a6993715377ae450cec90078e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
      
       </head>
 
@@ -185,7 +195,7 @@
     <div id="quarto-embed-header" class="headroom fixed-top bg-primary">
       
       <a onclick="window.quartoBackToArticle(); return false;" class="btn btn-primary quarto-back-link" href=""><i class="bi bi-caret-left"></i> Back to Article</a>
-      <h6><i class="bi bi-journal-code"></i> 3. Tertiary analyses (scale construction)</h6>
+      <h6><i class="bi bi-journal-code"></i> ESM C: Tertiary analyses (scale construction)</h6>
 
             <a href="../analysis/tertiary_analyses.qmd" class="btn btn-primary quarto-download-embed" download="tertiary_analyses.qmd">Download Source</a>
           </div>
@@ -193,7 +203,7 @@
      <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Tertiary analyses (scale construction)</h1>
+      <h1 class="title">ESM C: Tertiary analyses (scale construction)</h1>
           </div>
 
     
@@ -225,8 +235,9 @@
   <li><a href="#load-datasets" id="toc-load-datasets" class="nav-link" data-scroll-target="#load-datasets">Load datasets</a></li>
   <li><a href="#exploratory-factor-analysis" id="toc-exploratory-factor-analysis" class="nav-link" data-scroll-target="#exploratory-factor-analysis">Exploratory factor analysis</a>
   <ul class="collapse">
-  <li><a href="#reliability-estimates-and-item-total-correlations" id="toc-reliability-estimates-and-item-total-correlations" class="nav-link" data-scroll-target="#reliability-estimates-and-item-total-correlations">Reliability estimates and item total correlations</a></li>
+  <li><a href="#confidence-intervals-for-efa-loadings" id="toc-confidence-intervals-for-efa-loadings" class="nav-link" data-scroll-target="#confidence-intervals-for-efa-loadings">Confidence intervals for EFA loadings</a></li>
   </ul></li>
+  <li><a href="#reliability-estimates-and-item-total-correlations-for-each-scale" id="toc-reliability-estimates-and-item-total-correlations-for-each-scale" class="nav-link" data-scroll-target="#reliability-estimates-and-item-total-correlations-for-each-scale">Reliability estimates and item total correlations for each scale</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -246,24 +257,24 @@
 </div>
 </div>
 </div>
-<section id="load-packages" class="level2">
-<h2 class="anchored" data-anchor-id="load-packages">Load packages</h2>
+<section id="load-packages" class="level1">
+<h1>Load packages</h1>
 <div class="cell-container"><div class="cell-decorator"><pre>In [1]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.2     ✔ tibble    3.3.0
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.1.0     
+✔ dplyr     1.2.1     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'psych'
@@ -274,30 +285,32 @@ The following objects are masked from 'package:ggplot2':
 </div>
 </div></div>
 <div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># record R packages</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>papaja<span class="sc">::</span><span class="fu">r_refs</span>(<span class="at">file =</span> <span class="st">"../r-references.bib"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># record R packages</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>papaja<span class="sc">::</span><span class="fu">r_refs</span>(<span class="at">file =</span> <span class="st">"../r-references.bib"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="load-datasets" class="level2">
-<h2 class="anchored" data-anchor-id="load-datasets">Load datasets</h2>
+<section id="load-datasets" class="level1">
+<h1>Load datasets</h1>
 <div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dat_pilot <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(<span class="st">"../data/Pilottest_Studie_3.sav"</span>, </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">to.data.frame =</span> <span class="cn">TRUE</span>, <span class="at">use.value.labels =</span> <span class="cn">FALSE</span>, <span class="at">na.omit =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dat_pilot <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(<span class="st">"../data/Pilottest_Studie_3.sav"</span>, </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">to.data.frame =</span> <span class="cn">TRUE</span>, <span class="at">use.value.labels =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="exploratory-factor-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="exploratory-factor-analysis">Exploratory factor analysis</h2>
+<section id="exploratory-factor-analysis" class="level1">
+<h1>Exploratory factor analysis</h1>
 <div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">fa</span>(dat_pilot <span class="sc">|&gt;</span> <span class="fu">select</span>(KGr_22<span class="sc">:</span>KGr_40), </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">nfactors =</span> <span class="dv">3</span>, <span class="at">rotate =</span> <span class="st">"Promax"</span>, <span class="at">fm =</span> <span class="st">"ml"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fit, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">cut =</span> <span class="fl">0.15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">fa</span>(dat_pilot <span class="sc">|&gt;</span> <span class="fu">select</span>(KGr_22<span class="sc">:</span>KGr_40), </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">nfactors =</span> <span class="dv">3</span>, <span class="at">rotate =</span> <span class="st">"Promax"</span>, <span class="at">fm =</span> <span class="st">"ml"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required namespace: GPArotation</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fit, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">cut =</span> <span class="fl">0.15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Factor Analysis using method =  ml
 Call: fa(r = select(dat_pilot, KGr_22:KGr_40), nfactors = 3, rotate = "Promax", 
     fm = "ml")
 Standardized loadings (pattern matrix) based upon correlation matrix
-       item   ML2   ML1   ML3     h2   u2 com
+       item   ML1   ML2   ML3     h2   u2 com
 KGr_26   22  0.84 -0.16       0.6718 0.33 1.1
 KGr_42   37  0.84             0.6876 0.31 1.0
 KGr_38   60 -0.80             0.6345 0.37 1.0
@@ -316,8 +329,8 @@ KGr_35   43 -0.63             0.4327 0.57 1.1
 KGr_25    7  0.62             0.3928 0.61 1.1
 KGr_36   58 -0.59             0.3423 0.66 1.1
 KGr_27   13  0.54             0.3018 0.70 1.0
-KGr_23    4  0.50             0.2494 0.75 1.1
 KGr_22    1  0.50             0.2481 0.75 1.0
+KGr_23    4  0.50             0.2494 0.75 1.1
 KGr_30   16  0.42             0.1905 0.81 1.2
 KGr_29   25  0.32        0.23 0.1385 0.86 2.0
 KGe_50   44        0.94       0.8465 0.15 1.0
@@ -325,9 +338,9 @@ KGe_49   29        0.93       0.8143 0.19 1.0
 KGe_56   20       -0.89       0.7049 0.30 1.1
 KGe_51   17        0.86       0.7016 0.30 1.0
 KGe_48    5        0.78       0.5958 0.40 1.0
-KGe_52   14       -0.72       0.4977 0.50 1.0
+KGe_52   14       -0.73       0.4977 0.50 1.0
 KGe_59   50        0.72       0.5543 0.45 1.0
-KGe_57    8       -0.70  0.21 0.4159 0.58 1.2
+KGe_57    8       -0.70  0.22 0.4159 0.58 1.2
 KGe_53   47       -0.68       0.4623 0.54 1.1
 KGe_58   32       -0.66       0.4514 0.55 1.1
 KGe_61   35        0.66       0.4632 0.54 1.1
@@ -335,42 +348,42 @@ KGe_54   26 -0.24 -0.45       0.2839 0.72 1.6
 KGe_46   23        0.43       0.2195 0.78 1.1
 KGe_45   41  0.23  0.39       0.2518 0.75 1.6
 KGe_47   38        0.39       0.1668 0.83 1.0
-KGe_60   53        0.21  0.18 0.1047 0.90 2.1
-KGe_55   11       -0.17 -0.16 0.0739 0.93 2.2
-A_6      27       -0.16  0.90 0.7381 0.26 1.1
+KGe_60   53        0.22  0.18 0.1047 0.90 2.0
+KGe_55   11       -0.18 -0.16 0.0739 0.93 2.2
+A_6      27       -0.15  0.90 0.7381 0.26 1.1
 A_2      51              0.87 0.7051 0.29 1.0
 A_16     24              0.83 0.6235 0.38 1.1
 A_5      57              0.74 0.5753 0.42 1.0
 A_17     39              0.59 0.3936 0.61 1.1
 A_9      15              0.52 0.2657 0.73 1.0
 A_10     36              0.42 0.2072 0.79 1.1
-A_15     12              0.41 0.1882 0.81 1.1
+A_15     12              0.40 0.1882 0.81 1.1
 A_14      9             -0.37 0.1947 0.81 1.5
 A_8       6              0.35 0.1264 0.87 1.0
-A_13     30             -0.33 0.1131 0.89 1.4
+A_13     30             -0.32 0.1131 0.89 1.4
 A_12     21              0.32 0.1258 0.87 1.1
 A_1      18              0.31 0.1424 0.86 1.4
-KGe_44    2        0.17  0.26 0.1237 0.88 1.7
 A_19     59              0.26 0.0628 0.94 1.0
+KGe_44    2        0.17  0.25 0.1237 0.88 1.8
 A_11     56              0.24 0.0600 0.94 1.2
 A_18     45              0.24 0.0836 0.92 1.4
 A_3       3              0.22 0.0880 0.91 1.7
-A_7      42              0.20 0.0561 0.94 1.2
+A_7      42              0.20 0.0561 0.94 1.3
 A_4      33              0.15 0.0318 0.97 1.4
 A_21     54                   0.0168 0.98 1.2
 A_20     48                   0.0059 0.99 1.8
 
-                        ML2  ML1  ML3
-SS loadings           10.26 7.59 4.87
+                        ML1  ML2  ML3
+SS loadings           10.27 7.60 4.85
 Proportion Var         0.17 0.12 0.08
 Cumulative Var         0.17 0.29 0.37
 Proportion Explained   0.45 0.33 0.21
 Cumulative Proportion  0.45 0.79 1.00
 
  With factor correlations of 
-     ML2  ML1  ML3
-ML2 1.00 0.20 0.02
-ML1 0.20 1.00 0.35
+     ML1  ML2  ML3
+ML1 1.00 0.20 0.02
+ML2 0.20 1.00 0.35
 ML3 0.02 0.35 1.00
 
 Mean item complexity =  1.2
@@ -382,7 +395,7 @@ df of  the model are 1650  and the objective function was  14.6
 The root mean square of the residuals (RMSR) is  0.07 
 The df corrected root mean square of the residuals is  0.07 
 
-The harmonic n.obs is  390 with the empirical chi square  6713.66  with prob &lt;  0 
+The harmonic n.obs is  390 with the empirical chi square  3356.83  with prob &lt;  9.1e-119 
 The total n.obs was  390  with Likelihood Chi Square =  5340.85  with prob &lt;  0 
 
 Tucker Lewis Index of factoring reliability =  0.675
@@ -390,24 +403,103 @@ RMSEA index =  0.076  and the 90 % confidence intervals are  0.074 0.078
 BIC =  -4503.3
 Fit based upon off diagonal values = 0.92
 Measures of factor score adequacy             
-                                                   ML2  ML1  ML3
+                                                   ML1  ML2  ML3
 Correlation of (regression) scores with factors   0.98 0.98 0.96
-Multiple R square of scores with factors          0.96 0.96 0.92
-Minimum correlation of possible factor scores     0.92 0.92 0.84</code></pre>
+Multiple R square of scores with factors          0.96 0.95 0.92
+Minimum correlation of possible factor scores     0.91 0.91 0.84</code></pre>
 </div>
 </div></div>
-<section id="reliability-estimates-and-item-total-correlations" class="level3">
-<h3 class="anchored" data-anchor-id="reliability-estimates-and-item-total-correlations">Reliability estimates and item total correlations</h3>
+<section id="confidence-intervals-for-efa-loadings" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-intervals-for-efa-loadings">Confidence intervals for EFA loadings</h2>
 <div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>neg_items <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"A_13"</span>, <span class="st">"A_14"</span>, <span class="st">"A_21"</span>,</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"KGr_35"</span>, <span class="st">"KGr_36"</span>, <span class="st">"KGr_37"</span>, <span class="st">"KGr_38"</span>, <span class="st">"KGr_39"</span>, <span class="st">"KGr_40"</span>, <span class="st">"KGr_41"</span>, <span class="st">"KGr_43"</span>,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"KGe_52"</span>, <span class="st">"KGe_53"</span>, <span class="st">"KGe_54"</span>, <span class="st">"KGe_55"</span>, <span class="st">"KGe_56"</span>, <span class="st">"KGe_57"</span>, <span class="st">"KGe_58"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>dat_pilot_recode <span class="ot">&lt;-</span> dat_pilot <span class="sc">|&gt;</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(KGr_22<span class="sc">:</span>KGr_40) <span class="sc">|&gt;</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(neg_items), <span class="sc">~</span> <span class="dv">7</span> <span class="sc">-</span> .))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we have to fit the efa again, because nice printing and sorting of loadings does not work if confidence intervals are computed</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">fa</span>(dat_pilot <span class="sc">|&gt;</span> <span class="fu">select</span>(KGr_22<span class="sc">:</span>KGr_40), </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nfactors =</span> <span class="dv">3</span>, <span class="at">rotate =</span> <span class="st">"Promax"</span>, <span class="at">fm =</span> <span class="st">"ml"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.iter =</span> <span class="dv">2000</span>, <span class="at">p =</span> <span class="fl">0.05</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(<span class="fu">print</span>(fit2, <span class="at">sort =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(out[<span class="dv">105</span><span class="sc">:</span>(<span class="fu">length</span>(out)<span class="sc">-</span><span class="dv">5</span>)], <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Coefficients and bootstrapped confidence intervals 
+         low   ML3 upper   low   ML1 upper   low   ML2 upper
+KGr_22  0.39  0.50  0.61 -0.14 -0.03  0.09 -0.07  0.04  0.16
+KGe_44 -0.11 -0.02  0.07  0.06  0.17  0.29  0.13  0.25  0.38
+A_3    -0.08  0.02  0.13  0.02  0.14  0.26  0.09  0.22  0.34
+KGr_23  0.40  0.50  0.60 -0.17 -0.07  0.03 -0.01  0.10  0.21
+KGe_48 -0.02  0.05  0.11  0.71  0.78  0.84 -0.12 -0.06  0.02
+A_8    -0.13 -0.04  0.06 -0.09  0.02  0.13  0.23  0.35  0.46
+KGr_25  0.54  0.62  0.70 -0.13 -0.04  0.06 -0.01  0.10  0.21
+KGe_57 -0.01  0.07  0.15 -0.77 -0.70 -0.62  0.12  0.22  0.31
+A_14    0.01  0.11  0.20 -0.25 -0.14 -0.03 -0.50 -0.37 -0.24
+KGr_24  0.73  0.79  0.85 -0.12 -0.05  0.02 -0.08 -0.01  0.07
+KGe_55 -0.04  0.05  0.16 -0.30 -0.18 -0.06 -0.28 -0.16 -0.04
+A_15   -0.14 -0.05  0.04 -0.03  0.07  0.18  0.30  0.40  0.51
+KGr_27  0.45  0.54  0.63 -0.11  0.00  0.10 -0.03  0.08  0.19
+KGe_52 -0.11 -0.04  0.03 -0.79 -0.73 -0.65  0.01  0.10  0.17
+A_9    -0.17 -0.07  0.02 -0.12 -0.02  0.09  0.40  0.52  0.64
+KGr_30  0.33  0.42  0.52 -0.17 -0.07  0.02 -0.22 -0.12 -0.03
+KGe_51 -0.17 -0.11 -0.04  0.80  0.86  0.91 -0.09 -0.02  0.06
+A_1    -0.06  0.03  0.13  0.02  0.13  0.25  0.19  0.31  0.42
+KGr_31  0.60  0.67  0.74 -0.08  0.01  0.10 -0.08  0.02  0.12
+KGe_56  0.02  0.08  0.13 -0.94 -0.89 -0.83  0.05  0.13  0.19
+A_12   -0.10  0.00  0.10 -0.04  0.08  0.21  0.18  0.32  0.46
+KGr_26  0.79  0.84  0.88 -0.23 -0.16 -0.09 -0.05  0.03  0.10
+KGe_46 -0.06  0.04  0.15  0.32  0.43  0.54 -0.05  0.07  0.18
+A_16   -0.08  0.00  0.07 -0.22 -0.14 -0.04  0.73  0.83  0.91
+KGr_29  0.21  0.32  0.41 -0.18 -0.08  0.04  0.10  0.23  0.34
+KGe_54 -0.33 -0.24 -0.16 -0.55 -0.45 -0.35  0.00  0.10  0.20
+A_6    -0.05  0.02  0.08 -0.22 -0.15 -0.07  0.82  0.90  0.97
+KGr_33  0.56  0.64  0.71 -0.10 -0.01  0.08 -0.07  0.03  0.12
+KGe_49 -0.19 -0.14 -0.09  0.89  0.93  0.97 -0.08 -0.03  0.04
+A_13    0.03  0.13  0.23 -0.04  0.07  0.17 -0.44 -0.32 -0.21
+KGr_32  0.66  0.72  0.78  0.03  0.11  0.19 -0.08  0.00  0.07
+KGe_58 -0.20 -0.12 -0.05 -0.74 -0.66 -0.58  0.01  0.10  0.18
+A_4    -0.04  0.06  0.17 -0.09  0.03  0.15  0.02  0.15  0.29
+KGr_34  0.57  0.64  0.70  0.03  0.12  0.21 -0.01  0.07  0.16
+KGe_61 -0.20 -0.12 -0.04  0.58  0.66  0.74  0.00  0.08  0.17
+A_10   -0.11 -0.02  0.08  0.00  0.09  0.19  0.31  0.42  0.52
+KGr_42  0.79  0.84  0.88 -0.14 -0.08 -0.01  0.02  0.10  0.18
+KGe_47 -0.11 -0.01  0.09  0.28  0.39  0.51 -0.07  0.04  0.16
+A_17    0.02  0.10  0.18 -0.03  0.06  0.16  0.50  0.59  0.68
+KGr_37 -0.80 -0.74 -0.68  0.04  0.12  0.20  0.03  0.11  0.20
+KGe_45  0.14  0.23  0.33  0.28  0.39  0.50 -0.08  0.02  0.13
+A_7    -0.12 -0.01  0.09 -0.04  0.07  0.19  0.07  0.20  0.32
+KGr_35 -0.70 -0.63 -0.55 -0.22 -0.12 -0.02 -0.07  0.03  0.13
+KGe_50 -0.13 -0.08 -0.03  0.90  0.94  0.98 -0.08 -0.03  0.04
+A_18   -0.13 -0.03  0.07  0.00  0.10  0.22  0.12  0.24  0.36
+KGr_39 -0.78 -0.71 -0.63 -0.09  0.00  0.10 -0.06  0.04  0.15
+KGe_53 -0.18 -0.10 -0.03 -0.75 -0.68 -0.60  0.02  0.11  0.18
+A_20   -0.14 -0.03  0.07 -0.13 -0.02  0.09 -0.18 -0.06  0.07
+KGr_28  0.72  0.77  0.83 -0.10 -0.03  0.04 -0.01  0.06  0.14
+KGe_59  0.03  0.10  0.17  0.65  0.72  0.79 -0.10 -0.02  0.08
+A_2    -0.03  0.04  0.10 -0.16 -0.10 -0.03  0.81  0.87  0.92
+KGr_41 -0.83 -0.78 -0.72 -0.11 -0.03  0.05 -0.08  0.01  0.10
+KGe_60 -0.15 -0.05  0.05  0.11  0.22  0.33  0.06  0.18  0.29
+A_21   -0.12  0.00  0.10 -0.17 -0.04  0.09 -0.01  0.14  0.28
+KGr_43 -0.82 -0.76 -0.70 -0.06  0.03  0.13 -0.12 -0.02  0.08
+A_11   -0.17 -0.07  0.04 -0.13 -0.02  0.10  0.11  0.24  0.37
+A_5    -0.02  0.05  0.12 -0.03  0.03  0.12  0.66  0.74  0.81
+KGr_36 -0.66 -0.59 -0.51 -0.03  0.07  0.17 -0.01  0.09  0.20
+A_19   -0.13 -0.03  0.07 -0.13 -0.02  0.10  0.13  0.26  0.37
+KGr_38 -0.85 -0.80 -0.75 -0.05  0.04  0.12  0.00  0.09  0.18
+KGr_40 -0.82 -0.76 -0.71 -0.07  0.01  0.09 -0.13 -0.04  0.04</code></pre>
+</div>
 </div></div>
+</section>
+</section>
+<section id="reliability-estimates-and-item-total-correlations-for-each-scale" class="level1">
+<h1>Reliability estimates and item total correlations for each scale</h1>
 <div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>rel_age <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(dat_pilot_recode <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"A"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>neg_items <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"A_13"</span>, <span class="st">"A_14"</span>, <span class="st">"A_21"</span>,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"KGr_35"</span>, <span class="st">"KGr_36"</span>, <span class="st">"KGr_37"</span>, <span class="st">"KGr_38"</span>, <span class="st">"KGr_39"</span>, <span class="st">"KGr_40"</span>, <span class="st">"KGr_41"</span>, <span class="st">"KGr_43"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"KGe_52"</span>, <span class="st">"KGe_53"</span>, <span class="st">"KGe_54"</span>, <span class="st">"KGe_55"</span>, <span class="st">"KGe_56"</span>, <span class="st">"KGe_57"</span>, <span class="st">"KGe_58"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>dat_pilot_recode <span class="ot">&lt;-</span> dat_pilot <span class="sc">|&gt;</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(KGr_22<span class="sc">:</span>KGr_40) <span class="sc">|&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(neg_items), <span class="sc">~</span> <span class="dv">7</span> <span class="sc">-</span> .))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>rel_age <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(dat_pilot_recode <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"A"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in psych::alpha(select(dat_pilot_recode, starts_with("A"))): Some items were negatively correlated with the first principal component and probably 
 should be reversed.  
@@ -418,12 +510,12 @@ To do this, run the function again with the 'check.keys=TRUE' option</code></pre
 probably should be reversed.  
 To do this, run the function again with the 'check.keys=TRUE' option</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>rel_height <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(dat_pilot_recode <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"KGr"</span>)))</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>rel_weight <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(dat_pilot_recode <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"KGe"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rel_height <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(dat_pilot_recode <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"KGr"</span>)))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>rel_weight <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(dat_pilot_recode <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"KGe"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 <p>The part-whole corrected item total correlations are displayed in column <code>r.drop</code></p>
-<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>rel_age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rel_age</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Reliability analysis   
@@ -509,7 +601,7 @@ A_11 0.48 0.33 0.08 0.06 0.02 0.02    0
 A_5  0.36 0.24 0.17 0.19 0.03 0.01    0
 A_19 0.18 0.16 0.17 0.23 0.15 0.11    0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rel_height</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>rel_height</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Reliability analysis   
@@ -598,7 +690,7 @@ KGr_36 0.08 0.10 0.07 0.07 0.13 0.55    0
 KGr_38 0.12 0.12 0.08 0.07 0.24 0.36    0
 KGr_40 0.21 0.15 0.13 0.12 0.13 0.26    0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rel_weight</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>rel_weight</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Reliability analysis   
@@ -677,9 +769,8 @@ KGe_60 0.32 0.22 0.15 0.11 0.12 0.08    0</code></pre>
 </div>
 </div></div>
 </section>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
+<section id="references" class="level1">
+<h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-eichhornItem2019" class="csl-entry" role="listitem">
 Eichhorn, K. (2019). <em>Item und skala: Empirische untersuchungen zur g<span>ü</span>ltigkeit psychologischer messungen anhand physikalischer merkmale</em> [Ludwig-Maximilians-Universit<span>ä</span>t M<span>ü</span>nchen]. <a href="http://nbn-resolving.de/urn:nbn:de:bvb:19-236286">http://nbn-resolving.de/urn:nbn:de:bvb:19-236286</a>
@@ -738,13 +829,14 @@ Eichhorn, K. (2019). <em>Item und skala: Empirische untersuchungen zur g<span>ü
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
