@@ -134,7 +134,7 @@ fit_df <- bind_rows(
   pivot_longer(!c(measure, categories), names_to = "statistic", values_to = "est") |>
   filter(statistic %in% c("chisq.scaled", "pvalue.scaled", "df.scaled", "cfi.scaled", "rmsea.scaled", "srmr")) |>
   mutate(statistic = case_match(statistic, "chisq.scaled" ~ "$\\chi^2$", "pvalue.scaled" ~ "$p$", "df.scaled" ~ "$df$", "cfi.scaled" ~ "CFI", "rmsea.scaled" ~ "RMSEA", "srmr" ~ "SRMR")) |>
-  mutate(est_print = papaja::printnum(est, gt1 = FALSE, digits = 3)) |>
+  mutate(est_print = papaja::printnum(est, gt1 = TRUE, digits = 3)) |>
   mutate(est_print = if_else(statistic == "$df$", as.character(est), est_print)) |>
   mutate(est_print = if_else(statistic == "$p$", papaja::printp(as.numeric(est_print)), est_print)) |>
   pivot_wider(id_cols = statistic, names_from = c(measure, categories), values_from = est_print)
@@ -378,6 +378,13 @@ modelges <- "
   Alter_realW ~~ age
   Koerpergewicht_realW ~~ weight
   Koerpergroesse_realW ~~ height
+  
+  Alter_realW ~~ height
+  Alter_realW ~~ weight
+  Koerpergroesse_realW ~~ age
+  Koerpergroesse_realW ~~ weight
+  Koerpergewicht_realW ~~ age
+  Koerpergewicht_realW ~~ height
 " 
 
 fit1ges6 <- cfa(model = modelges, data = dat_poly, ordered = c("A_1","A_2", "A_3", "A_4", "A_5", "A_6", "A_7","A_8", "A_9", "A_10", "A_11","A_12", "KGr_13","KGr_14", "KGr_15", "KGr_16", "KGr_17", "KGr_18", "KGr_19","KGr_20", "KGr_21", "KGr_22", "KGr_23","KGr_24", "KGe_25","KGe_26", "KGe_27", "KGe_28", "KGe_29", "KGe_30", "KGe_31","KGe_32", "KGe_33", "KGe_34", "KGe_35","KGe_36"), std.lv=TRUE, meanstructure=TRUE)
@@ -552,7 +559,7 @@ table4
 # Save results for manuscript {#sec-saveresults}
 
 ```{r}
-results <- saveRDS(
+saveRDS(
   object = list(
     table1 = table1, table2 = table2, table3 = table3, table4 = table4,
     load_df_nomod = load_df_nomod,

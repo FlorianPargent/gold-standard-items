@@ -127,7 +127,7 @@ fit_df <- bind_rows(
   pivot_longer(!c(measure, categories), names_to = "statistic", values_to = "est") |>
   filter(statistic %in% c("chisq.scaled", "pvalue.scaled", "df.scaled", "cfi.scaled", "rmsea.scaled", "srmr")) |>
   mutate(statistic = case_match(statistic, "chisq.scaled" ~ "$\\chi^2$", "pvalue.scaled" ~ "$p$", "df.scaled" ~ "$df$", "cfi.scaled" ~ "CFI", "rmsea.scaled" ~ "RMSEA", "srmr" ~ "SRMR")) |>
-  mutate(est_print = papaja::printnum(est, gt1 = FALSE, digits = 3)) |>
+  mutate(est_print = papaja::printnum(est, gt1 = TRUE, digits = 3)) |>
   mutate(est_print = if_else(statistic == "$df$", as.character(est), est_print)) |>
   mutate(est_print = if_else(statistic == "$p$", papaja::printp(as.numeric(est_print)), est_print)) |>
   pivot_wider(id_cols = statistic, names_from = c(measure, categories), values_from = est_print)
@@ -215,7 +215,7 @@ subset(mod_indGe2[order(mod_indGe2$mi, decreasing=TRUE), ], mi > 4)
 # Save results for manuscript {#sec-saveresults}
 
 ```{r}
-results <- saveRDS(
+saveRDS(
   object = list(
     table5 = table5,
     load_df_mod = load_df_mod,
